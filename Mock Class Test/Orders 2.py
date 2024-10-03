@@ -31,10 +31,15 @@ def findMaxOrderWithTV(orders):
             maxOrder = order
     print(maxOrder.productPurchased, maxOrder.amountSpent)
 
-def discount():
-    if orders[0] % 5 == 0:
-        print()
+def discount(orders):
+    with open('textFile.txt', 'w') as file:
+        for order in orders:
+            if int(order.customerID) % 5 == 0:
+                file.write(order.customerID+"-"+order.productPurchased[:3]+"-"+"DISCOUNT CODE ASSIGNED"+"\n")
+            else:
+                file.write(order.customerID+"-"+order.productPurchased[:3]+"-"+"NO DISCOUNT"+"\n")
 
 #Main Program
 orders = readOrdersFromCSV()
 findMaxOrderWithTV(orders)
+discount(orders)
