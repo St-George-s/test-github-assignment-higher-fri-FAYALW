@@ -30,7 +30,7 @@ def displayNamesMax(visitors, attraction):
         if visitors[counter] > maximumValue: 
             maximumValue = visitors[counter]
             max_index = counter 
-    print("The largest value was", str(maximumValue), "for attraction", (attraction[index])) 
+    print("The largest value was", str(maximumValue), "for attraction", (attraction[max_index])) 
     
 # 
 def displayNamesMin(visitors, attraction):
@@ -40,7 +40,7 @@ def displayNamesMin(visitors, attraction):
         if visitors[counter] < minimumValue: 
             minimumValue = visitors[counter]
             min_index = counter
-    print("The smallest value was", str(minimumValue), "for attraction", (attraction[index]))
+    print("The smallest value was", str(minimumValue), "for attraction", (attraction[min_index]))
 
 # 
 def writeDataToFile(daysOpen, attraction, category):
