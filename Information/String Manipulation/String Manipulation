@@ -1,0 +1,14 @@
+#	• To get the first character of a string name:
+#	print(name[0])  # Output: M
+	
+#	• To get the first four characters:
+#	print(name[0:4])  # Output: Mr W
+	
+#	• To get the last four characters:
+#	print(name[-4:])  # Output: lker
+	
+#	• Similarly, for the last two characters:
+#print(name[-2:])  # Output: er
+	
+#	• To get characters from index 2 to 5:
+#print(name[2:5])  # Output: Wa
