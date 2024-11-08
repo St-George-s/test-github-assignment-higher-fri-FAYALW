@@ -26,7 +26,7 @@ I think that this will add two new records. One record will have a track ID of 5
 
 
 UPDATE Albums 
-SET release_year = 2021 WHERE album_id =3;
+SET release_year = 2021 WHERE album_id = 3;
 
 I think that this will update the release year of album IDs of 3 to 2021
 

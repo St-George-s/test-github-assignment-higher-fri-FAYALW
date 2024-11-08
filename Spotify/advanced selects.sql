@@ -16,7 +16,7 @@ I think that this will select the album name and release year from the Albums ta
 
 SELECT a.album_name AS Album, a.release_year Year 
 FROM Albums a 
-WHERE a.release_year >2010 
+WHERE a.release_year > 2010 
 ORDER BY a.release_year;
 
 I think that this will select album names and release years, with aliases Album and Year respectively, from the Albums table for albums released after 2010 in ascending order.
