@@ -2,11 +2,7 @@
 
 [[package]]
 name = "prettytable"
-<<<<<<< HEAD:SQL/Spotify/Random/poetry.lock
-version = "3.11.0"
-=======
 version = "3.12.0"
->>>>>>> 343dd9a (.):Courseworks Databases/SQA-22-Coursework-Database-Routes/poetry.lock
 description = "A simple Python library for easily displaying tabular data in a visually appealing ASCII table format"
 optional = false
 python-versions = ">=3.9"
@@ -33,16 +29,6 @@ files = [
 ]
 
 [metadata]
-<<<<<<< HEAD:SQL/Spotify/Random/poetry.lock
-lock-version = "1.1"
-python-versions = "^3.9"
-content-hash = "5814fdee877f965ed5f249e7a7c7b033fa83e20d5a870a11d932211982824031"
-
-[metadata.files]
-prettytable = []
-wcwidth = []
-=======
 lock-version = "2.0"
 python-versions = "^3.9"
 content-hash = "5814fdee877f965ed5f249e7a7c7b033fa83e20d5a870a11d932211982824031"
->>>>>>> 343dd9a (.):Courseworks Databases/SQA-22-Coursework-Database-Routes/poetry.lock
