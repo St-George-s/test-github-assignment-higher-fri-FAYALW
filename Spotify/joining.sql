@@ -8,7 +8,7 @@ WHERE album_id IN(
   WHERE release_year > 2018
 );
 
-I think that this will select all tracks from albums released after the year 2018.
+-- I think that this will select all tracks from albums released after the year 2018.
 
 
  SELECT T.track_name, A.album_name 
@@ -16,7 +16,7 @@ I think that this will select all tracks from albums released after the year 201
  WHERE T.album_id = A.album_id
    AND A.release_year > 2020;
 
-I think that this will select all track names and their corresponding album names for albums released after the year 2020.
+-- I think that this will select all track names and their corresponding album names for albums released after the year 2020.
 
 
 SELECT T.track_name, A.album_name 
