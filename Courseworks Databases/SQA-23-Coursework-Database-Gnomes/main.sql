@@ -7,7 +7,13 @@
 -- GROUP BY gnomeName
 -- ORDER BY "Total gnomes sold" DESC;
 
+SELECT MAX(unitPrice)
+FROM Gnome
 
-SELECT emailAddress, CO.orderID, quantity, MAX(unitPrice)
-FROM Customer C, CustOrder CO, GnomePurchase GP, Gnome G
-WHERE quantity >= 3 AND 
+
+SELECT emailAddress, CO.orderID, quantity
+FROM Customer C, Orders O, GnomePurchase GP, Gnome G
+WHERE price = (
+    SELECT MAX(unitPrice)
+    FROM Gnome
+) quantity >= 3;
