@@ -1,4 +1,4 @@
---DESCRIBE ALL TABLES;
+-- DESCRIBE ALL TABLES;
 
 -- 2b)
 -- SELECT gnomeName, SUM(quantity) AS "Total gnomes sold"
