@@ -1,5 +1,7 @@
 -- DESCRIBE ALL TABLES;
 
+-- PART B
+
 -- 3.1)
 -- SELECT eventName AS 'Event Name', name AS 'Shop Name', maxAttendees AS 'Max Attendees', eventDate AS 'Event Date'
 -- FROM Event, Shop
@@ -19,3 +21,11 @@
 --    FROM Shop
 --    WHERE name = 'Zara'
 -- );
+
+-- PART C
+
+-- SELECT name AS 'Shop Name', COUNT(bookingID) AS 'Total Bookings'
+-- FROM Shop, Booking, event
+-- WHERE Shop.shopID = Event.eventID
+-- AND Event.eventID = Booking.eventID
+-- GROUP BY name;
