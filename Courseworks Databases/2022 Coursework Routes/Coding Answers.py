@@ -19,7 +19,6 @@ def dates():
 
 def sightings():
 
-
 def upperCase(userInput):
     if userInput[0] != userInput[0].upper:
         userInput[0] = userInput[0].upper
