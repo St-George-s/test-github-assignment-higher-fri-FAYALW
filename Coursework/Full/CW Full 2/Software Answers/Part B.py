@@ -10,7 +10,7 @@ class Sighting: #Creates a record
 
 #Reads data from the file into an array (sightings) of records (Sighting)
 def readData(): #Defines function
-    with open('Courseworks Databases/2022 Coursework Routes/setup/mammals.txt', 'r') as file: #Opens a file
+    with open('Courseworks/2022 Coursework Routes/Software Answers/Part B.py', 'r') as file: #Opens a file
         reader = csv.reader(file) #Reads into the file
         sightings = [] #Creates an array called sightings
         for row in reader: #Loops through each row in the file
