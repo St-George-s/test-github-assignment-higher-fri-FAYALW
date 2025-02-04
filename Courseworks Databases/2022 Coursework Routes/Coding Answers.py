@@ -25,10 +25,10 @@ def readData(): #Defines function
 
 #Finds the oldest walker
 def findMaxAge(sightings): #Defines function 
-    maximumValue = sightings[0] #
-    for sighting in sightings:
-        if sighting.age > maximumValue.age:
-            maximumValue = sighting
+    maximumValue = sightings[0] #Sets the maximum value to the first record in the sightings array
+    for sighting in sightings: #Loops through each record in sightings 
+        if sighting.age > maximumValue.age: # Checks if the current age is larger than the one stored in maximum value
+            maximumValue = sighting # 
     print('The oldest walker is', maximumValue.age)  
 
 #Finds the dates of sightings
