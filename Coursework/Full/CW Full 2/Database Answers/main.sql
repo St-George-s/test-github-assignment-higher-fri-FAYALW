@@ -8,6 +8,13 @@ DESCRIBE ALL TABLES;
 -- ORDER BY COUNT(Walk.walkID) DESC;
 
 -- 2c)
-SELECT walkerNo, forename, surname, telNo
-FROM Walker, Walk, Route
-WHERE Walker.walkerNo = Walk.walkerNo AND Walk.routeID = Route.routeID AND 
+-- SELECT Walker.walkerNo, forename, surname, telNo
+-- FROM Walker, Walk, Route
+-- WHERE Walker.walkerNo = Walk.walkerNo 
+--     AND Walk.routeID = Route.routeID 
+--     AND Route.distance = (
+--         SELECT MAX(distance)
+--         FROM Route
+--         )
+-- GROUP BY telNo
+-- ORDER BY Walker.walkerNo ASC;
