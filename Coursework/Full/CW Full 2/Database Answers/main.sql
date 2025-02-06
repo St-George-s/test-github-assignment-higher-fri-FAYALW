@@ -1,4 +1,4 @@
-DESCRIBE ALL TABLES;
+-- DESCRIBE ALL TABLES;
 
 -- 2b)
 -- SELECT Planner.forename, Planner.surname, Planner.plannerNo, COUNT(Walk.walkID) AS 'Total participants'
