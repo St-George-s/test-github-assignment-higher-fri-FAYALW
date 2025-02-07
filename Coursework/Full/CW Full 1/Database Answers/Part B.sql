@@ -1,11 +1,5 @@
 -- DESCRIBE ALL TABLES;
 
--- PART A
--- 2a) 
--- A query to select customers who have placed orders in a particular month
--- A query to update customer information
-
--- PART B
 -- 2b)
 -- SELECT gnomeName, SUM(quantity) AS "Total gnomes sold"
 -- FROM Gnome G, GnomePurchase GP
