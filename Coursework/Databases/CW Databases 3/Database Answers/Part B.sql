@@ -5,14 +5,12 @@
 --     FROM Bookings
 --     WHERE event_type = 'Wedding'
 
-
 -- SELECT name
 -- FROM Clients
 -- WHERE client_id IN 
 --     (SELECT client_id 
 --     FROM Bookings 
 --     WHERE event_type = 'Wedding');
-
 
 -- SELECT title, date_taken
 -- FROM Photos
@@ -20,13 +18,11 @@
 --     (SELECT MAX(date_taken)
 --     FROM Photos);
 
-
 -- SELECT photographer_id, name
 -- FROM Photographers
 -- WHERE photographer_id NOT IN 
 --     (SELECT photographer_id
 --     FROM Bookings);
-
 
 -- SELECT name
 -- FROM Clients
@@ -34,7 +30,6 @@
 --     (SELECT client_id 
 --     FROM Bookings 
 --     WHERE event_type = 'Wedding');
-
 
 -- SELECT COUNT(*) AS [Photo count]
 -- FROM Photos
