@@ -18,3 +18,19 @@
 --         )
 -- GROUP BY telNo
 -- ORDER BY Walker.walkerNo ASC;
+
+-- 2d)
+-- SELECT Route.routeID, woodName, description
+-- FROM Route
+-- WHERE footwear = "Trail shoes"
+-- OR footwear = "Waterproof shoes"
+-- OR footwear = "Walking shoes"
+-- AND woodName = 'Dean Wood'
+-- OR woodName = 'Devilla' 
+-- AND routeID = 'Dev002'
+-- OR woodName = 'Balgownie'
+-- ORDER BY woodName DESC;
+
+-- 2e)
+-- Find the travelling distance from a walker's home to the starting
+-- point of a chosen route
