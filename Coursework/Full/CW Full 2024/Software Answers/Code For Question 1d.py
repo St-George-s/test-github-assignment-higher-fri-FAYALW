@@ -19,18 +19,19 @@ def readAthletesFile():
 
 #Function to generate the unique bib values
 def generateBibValues():
-    with open('Coursework/Full/CW Full 2024/Software Answers/bibValues.csv', 'w') as file: #Creates a CSV file called bibValues and writes to it
+    with open('bibValues.csv', 'w') as file: #Creates a CSV file called bibValues and writes to it
         for x in range(len(entryID)): #Loops through the file
             bibValue = forename[x][:1] + surname[x] + str(ord(location[x][:1])) #Creates the unique bib value
             line = entryID[x] + " " + bibValue + "\n" #Formats it so that each one is on a new line
             file.write(line) #Writes the line creates in the file
 
 #Function to work out the maximum jumping jacks completed
-def maxJumpingJacks():
-    maxJumps = jumps[0] #Sets the variable maxJumps to the value at index 0 in the jumps list
-    for x in range(len(jumps)): #Loops through each jump
-        if jumps[x] > maxJumps: #Checks if the current value is greater than maxJumps
-            maxJumps = jumps[x] #If the current value is greater than maxJumps then it changes maxJumps if to the new value
+def maxJumpingJacks(jumpsList):
+    maxJumps = jumpsList[0] #Sets the variable maxJumps to the value at index 0 in the jumps list
+    for x in range(len(jumpsList)): #Loops through each jump
+        if jumpsList[x] > maxJumps: #Checks if the current value is greater than maxJumps
+            maxJumps = jumpsList[x] #If the current value is greater than maxJumps then it changes maxJumps if to the new value
+    print(maxJumps)
     return maxJumps #Returns the value
 
 #Function to display the full name of the athlete who completed the most jumping jacks
@@ -63,10 +64,15 @@ def hostingLocation():
 #Main program
 readAthletesFile() #Calls the functions
 
-generateBibValues()
+#generateBibValues()
 
-maximumJumps = maxJumpingJacks()
+jumpsList = [100,87,102,108,95]
+maxJumpingJacks(jumpsList)
 
-displayAthlete(maximumJumps)
+#maxJumpingJacks(jumps)
 
-hostingLocation()
+#maximumJumps = maxJumpingJacks()
+
+#displayAthlete(maximumJumps)
+
+#hostingLocation()

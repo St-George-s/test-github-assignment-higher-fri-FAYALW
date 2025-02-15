@@ -39,7 +39,7 @@ def date(sightings): #Defines function
     mammalInput = upperCase(mammalInput) #Passes the mammal input through the upperCase function
     for sighting in sightings: #Loops through each record in the array
         if townInput == sighting.town and mammalInput == sighting.mammal: #Checks if the inputs match the data
-            print('The dates of the sightings were:', sighting.date) #Prints the dates of te sightings
+            print('The dates of the sightings were:', sighting.date) #Prints the dates of the sightings
 
 #Changed the first character to uppercase
 def upperCase(word): #Defines function
