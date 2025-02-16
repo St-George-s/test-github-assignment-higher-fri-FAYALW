@@ -4,8 +4,8 @@
 -- SELECT gnomeName, SUM(quantity) AS "Total gnomes sold"
 -- FROM Gnome G, GnomePurchase GP
 -- WHERE 
-    -- G.description like "%solar%"
-    -- AND G.gnomeID = GP.gnomeID
+--     G.description like "%solar%"
+--     AND G.gnomeID = GP.gnomeID
 -- GROUP BY gnomeName
 -- ORDER BY "Total gnomes sold" DESC;
 
