@@ -1,0 +1,3 @@
+-- 2a) 
+-- A query to select customers who have placed orders in a particular month
+-- A query to update customer information
