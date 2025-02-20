@@ -44,7 +44,7 @@ def date(sightings): #Defines function
 #Changed the first character to uppercase
 def upperCase(word): #Defines function
     firstChar = ord(word[0]) #Changes the first character of the word to its ASCII value
-    if firstChar >=97 and firstChar <= 122: #Checks if the ASCII value is between 97 and 122
+    if firstChar >= 97 and firstChar <= 122: #Checks if the ASCII value is between 97 and 122
         firstChar = firstChar - 32 #Subtracts 32 from the ASCII value
         firstChar = chr(firstChar) #Updates the firstChar variable
         word = (firstChar + word[1:]) #Concatenation
