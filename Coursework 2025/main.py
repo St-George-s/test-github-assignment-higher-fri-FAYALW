@@ -50,23 +50,24 @@ def findPosition(orders):
     return position
 
 
-def writeDetailsToFile(orders, position):
+def writeDetailsToFile(orders, position): #Defines a function to write the details to a text file
 # 3.1 Open new file ‘winningCustomer.txt’
-    with open('winningCustomer.csv', 'w') as file:
+    with open('winningCustomer.csv', 'w') as file: #Opens a new file
 # 3.2 If position is 0 or above then
-        for order in orders:
-            if order.position >= 0:
+        for order in orders: #Loops through each record in the array
+            if order.position >= 0: #Checks if the position is above or equal to 0
 # 3.3 Write winning order number, email and cost to ‘winningCustomer.txt’
-                file.write(orders[position].orderNum, orders[position].email, orders[position].cost)
+                file.write(orders[position].orderNum, orders[position].email, orders[position].cost) #If it is, then it write the winning order number, email, and cost to the file
 # 3.4 Else
             else:
 # 3.5 Write ‘No winner’ to ‘winningCustomer.txt’
-                file.write('No winner')
+                file.write('No winner') #Else it write 'No winner' to the file
 # 3.6 End if
 # 3.7 Close ‘winningCustomer.txt’
 # Writing to a file
 
-def countOption(orders):
+
+def countOption(orders): #Defines a function to count the number of orders delivered and collected
     deliveredCount = 0
     collectedCount = 0
     for counter in range(1, len(orders)):
@@ -88,7 +89,6 @@ writeDetailsToFile(orders, position)
 
 total = countOption(orders)
 print(total)
-
 
 
 # # 4.1 Call countOption function to return the number of orders delivered
