@@ -27,37 +27,37 @@ def readOrdersFromCSV(): #Defines a function to read the data from the CSV file
     return orders #Returns the array
 
 
-def findPosition(orders):
-    position = -1
-    index = 0
-    monthToSearch = input("Enter the first three letters of the month to search: ")
-    while position == -1 and index < len(orders):
-        if monthToSearch in orders[position].date and orders[position].rating == '5':
-            position = index
-        index += 1
-    return position
+def findPosition(orders): #Defiunes a function to find the position of the customer who gave the first 5-star rating of the month
+    position = -1 #Creates a variable called position and sets it to -1
+    index = 0 #Creates a variable called index and sets it to 0
+    monthToSearch = input("Enter the first three letters of the month to search: ") #Takes an input (name of month) from the user and assigns their input to the variable monthToSearch
+    for order in orders: #Loops through every record in the array
+        while position == -1 and index < len(orders): #While loop to check if the position is -1 (haven't found the winner yet) and the index is less than the length of the array (hasn't reached the end of the array yet)
+            if monthToSearch in orders[index].date and orders[index].rating == 5: # If statement to check if the user input is found in the current month and if the current rating is 5
+                position = index #Sets position to index
+            index += 1 #Adds 1 to index
+    return position #Returns the position
 
 
-def writeDetailsToFile(orders, position): #Defines a function to write the details to a text file
+def writeDetailsToFile(orders, position): #Defines a procedure to write the details to a text file
     with open('Coursework 2025/winningCustomer.txt', 'w') as file: #Opens a new file
-            if position >= 0: #Checks if the position is above or equal to 0
-                file.write(str(orders[position].orderNum) + "," + str(orders[position].email) + "," + str(orders[position].cost)) #If it is, then it write the winning order number, email, and cost to the file
-            else:
-                file.write('No winner') #Else it writes 'No winner' to the file
+            if position >= 0: #If statement to check if the position is above or equal to 0 because if it is not above or equal to 0 then that means that there was no 5-star rating for that month
+                file.write(str(orders[position].orderNum) + "," + str(orders[position].email) + "," + str(orders[position].cost)) #If the position is above or equal to 0 then it writes the order number, email, and cost that were at the position to the file
+            else: #Else
+                file.write('No winner') #If the position is not above or equal to 0 it writes 'No winner' to the file as it means no one gave a 5-star rating for that month so there is no winning customer
 
 
 def countOption(orders, option): #Defines a function to count the number of orders delivered and collected
-    count = 0
+    count = 0 #Creates a variable called counter and sets it to 0
     for counter in range(len(orders)):
         if orders[counter].option == option:
             count += 1
     return count
 
-#Main
+#Main program
 mainOrders = readOrdersFromCSV()
 
 mainPosition = findPosition(mainOrders)
-print(mainPosition)
 
 writeDetailsToFile(mainOrders, mainPosition)
 
