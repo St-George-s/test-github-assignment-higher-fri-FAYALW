@@ -1,6 +1,6 @@
 import csv # Import the csv module to handle reading data from CSV files
 
-class Order(): # Define an Order class to store detailed order information
+class Order(): #Defines an Order class to store detailed order information
     def __init__(self, orderNum, date, email, option, cost, rating):
         self.orderNum = orderNum #Initializes attributes for each order
         self.date = date   
