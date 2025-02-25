@@ -2,7 +2,7 @@ import csv
 
 #Define a record called Sighting
 class Sighting: #Creates a record
-    def __init__(self, town, mammal, date, age): #Initialises the cetegories in the record
+    def __init__(self, town, mammal, date, age): #Initialises the categories in the record
         self.town = town #Defining each category in the record
         self.mammal = mammal #Defining each category in the record
         self.date = date #Defining each category in the record
