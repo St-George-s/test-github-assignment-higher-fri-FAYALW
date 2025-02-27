@@ -16,12 +16,12 @@ def readOrdersFromFile(): #Defines a function to read the data from the file and
         orders = [] #Creates an array called orders to store the data from the file
         for row in reader: #Loops over each row in the file and create an Order object
             newOrder = Order( #For each order/row in the file it makes a new record
-                row[0], #orderNum from first column           
-                row[1], #date from second column  
-                row[2], #email from third column          
-                row[3], #option from fourth column   
-                float(row[4]), #cost from fifth column converted to a float
-                int(row[5]) #rating from sixth column converted to an integer       
+                row[0], #Gets each category from each column      
+                row[1],   
+                row[2],         
+                row[3],
+                float(row[4]), 
+                int(row[5])
             )
             orders.append(newOrder) #Appends each new order to the orders array
     return orders #Returns the array
@@ -47,11 +47,23 @@ def writeDetailsToFile(orders, position): #Defines a procedure to write the deta
 
 
 def countOption(orders, option): #Defines a function to count the number of orders delivered and collected
-    count = 0 #Creates a variable called counter and sets it to 0
+    count = 0 #Creates a variable called count and sets it to 0
     for counter in range(len(orders)): #Goes through the array using the length of the orders array as the amount of times to loop through
         if orders[counter].option == option: #Checks if the current option is equal to the option that will be specified by being passed in to the function in the main program ('Delivery' or 'Collection)
             count += 1 #Adds one to count if the condition is true
     return count #Returns the count
+
+
+# def countOptionTwo(orders):
+#     deliveryCount = 0
+#     collectionCount = 0
+#     for counter in range(len(orders)):
+#         if orders[counter].option == "Delivery":
+#             deliveryCount += 1
+#         elif orders[counter].option == "Collection":
+#             collectionCount += 1
+#     return deliveryCount, collectionCount
+
 
 #Main program
 mainOrders = readOrdersFromFile() #Calls the function which reads the data from the file and stores it in an array of records
@@ -63,5 +75,5 @@ writeDetailsToFile(mainOrders, mainPosition) #Calls the function which writes th
 deliveryTotal = countOption(mainOrders, "Delivery") #Calls the function which counts the number of orders, passing in 'Delivery' as the option so that it counts the number of deliveries and assigns the value to the variable deliveryCount
 collectionTotal = countOption(mainOrders, "Collection") #Calls the function which counts the number of orders, passing in 'Collection' as the option so that it counts the number of collection and assigns the value to the variable collectionCount
 
-print("The total amount of orders delivered were", deliveryTotal) #Prints the total number of orders delivered
-print("The total amount of orders collected were", collectionTotal) #Prints the total number of orders collected
+print("Total number of orders delivered to date:", deliveryTotal) #Prints the total number of orders delivered
+print("Total number of orders collected to date:", collectionTotal) #Prints the total number of orders collected
