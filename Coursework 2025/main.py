@@ -57,12 +57,11 @@ def countOption(orders, option): #Defines a function to count the number of orde
 mainOrders = readOrdersFromFile() #Calls the function which reads the data from the file and stores it in an array of records
 
 mainPosition = findPosition(mainOrders) #Calls the function which finds the position of the winning customer and assigns the value to the variable mainPosition
-print(mainPosition)
 
 writeDetailsToFile(mainOrders, mainPosition) #Calls the function which writes the details of the customer who won or writes that there was no winner to a file
 
 deliveryTotal = countOption(mainOrders, "Delivery") #Calls the function which counts the number of orders, passing in 'Delivery' as the option so that it counts the number of deliveries and assigns the value to the variable deliveryCount
 collectionTotal = countOption(mainOrders, "Collection") #Calls the function which counts the number of orders, passing in 'Collection' as the option so that it counts the number of collection and assigns the value to the variable collectionCount
 
-print(deliveryTotal) #Prints the total number of orders delivered
-print(collectionTotal) #Prints the total number of orders collected
+print("The total amount of orders delivered were", deliveryTotal) #Prints the total number of orders delivered
+print("The total amount of orders collected were", collectionTotal) #Prints the total number of orders collected
