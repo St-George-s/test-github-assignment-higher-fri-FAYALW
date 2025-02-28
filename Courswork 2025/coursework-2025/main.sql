@@ -9,6 +9,7 @@
 
 -- )
 
+
 -- 2d
 -- SELECT characterName, SUM(valuation) AS 'Total Valuation'
 -- FROM CharacterInfo, Comic, ComicCharacter
@@ -17,6 +18,7 @@
 -- AND characterName like '%Duck%'
 -- GROUP BY characterName
 -- ORDER BY 'Total Valuation' ASC;
+
 
 -- 2e
 SELECT comicTitle, issue, publisherName, (valuation * 2) AS [Double Price]
