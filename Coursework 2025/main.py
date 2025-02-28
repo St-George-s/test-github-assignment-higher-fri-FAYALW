@@ -54,26 +54,18 @@ def countOption(orders, option): #Defines a function to count the number of orde
     return count #Returns the count
 
 
-# def countOptionTwo(orders):
-#     deliveryCount = 0
-#     collectionCount = 0
-#     for counter in range(len(orders)):
-#         if orders[counter].option == "Delivery":
-#             deliveryCount += 1
-#         elif orders[counter].option == "Collection":
-#             collectionCount += 1
-#     return deliveryCount, collectionCount
+def displayTotals(orders): #Defines a procedure to display the total number of orders delivered and collected
+    deliveryTotal = countOption(orders, "Delivery") #Calls the countOption function, passing in 'Delivery' as the option so that it counts the number of deliveries and assigns the value to the variable deliveryCount
+    collectionTotal = countOption(orders, "Collection") #Calls the countOption function, passing in 'Collection' as the option so that it counts the number of collection and assigns the value to the variable collectionCount
+    print("Total number of orders delivered to date:", deliveryTotal) #Prints the total number of orders delivered
+    print("Total number of orders collected to date:", collectionTotal) #Prints the total number of orders collected
 
 
 #Main program
-mainOrders = readOrdersFromFile() #Calls the function which reads the data from the file and stores it in an array of records
+orders = readOrdersFromFile() #Calls the function which reads the data from the file and stores it in an array of records
 
-mainPosition = findPosition(mainOrders) #Calls the function which finds the position of the winning customer and assigns the value to the variable mainPosition
+position = findPosition(orders) #Calls the function which finds the position of the winning customer and assigns the value to the variable position
 
-writeDetailsToFile(mainOrders, mainPosition) #Calls the function which writes the details of the customer who won or writes that there was no winner to a file
+writeDetailsToFile(orders, position) #Calls the procedure which writes the details of the customer who won or writes that there was no winner to a file
 
-deliveryTotal = countOption(mainOrders, "Delivery") #Calls the function which counts the number of orders, passing in 'Delivery' as the option so that it counts the number of deliveries and assigns the value to the variable deliveryCount
-collectionTotal = countOption(mainOrders, "Collection") #Calls the function which counts the number of orders, passing in 'Collection' as the option so that it counts the number of collection and assigns the value to the variable collectionCount
-
-print("Total number of orders delivered to date:", deliveryTotal) #Prints the total number of orders delivered
-print("Total number of orders collected to date:", collectionTotal) #Prints the total number of orders collected
+displayTotals(orders) #Calls the procedure which outputs the total number of orders delivered and collected
