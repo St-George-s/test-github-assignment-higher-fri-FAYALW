@@ -1,5 +1,6 @@
 -- DESCRIBE ALL TABLES;
 
+
 -- 2c
 SELECT comicTitle, issue, publisherName, AVG(valuation) AS 'valuation'
 FROM Comic, Publisher
