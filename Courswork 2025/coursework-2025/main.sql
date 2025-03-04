@@ -2,24 +2,21 @@
 
 
 -- 2c
-SELECT comicTitle, issue, publisherName, AVG(valuation) AS 'valuation'
-FROM Comic, Publisher
-WHERE Comic.publisherID = Publisher.publisherID
-AND valuation > (
-    SELECT valuation
-    FROM Comic
-    WHERE valuation >= 'valuation' + 300
-);
+-- SELECT comicTitle, issue, publisherName, valuation
+-- FROM Comic, Publisher
+-- WHERE Comic.publisherID = Publisher.publisherID
+-- AND valuation >= (
+--     SELECT AVG(valuation)
+--     FROM Comic) + 300
+-- ORDER BY comicTitle ASC;
 
 
 -- 2d
--- SELECT characterName, SUM(valuation) AS 'Total Valuation'
--- FROM CharacterInfo, Comic, ComicCharacter
--- WHERE CharacterInfo.characterID = comicCharacter.characterID
--- AND ComicCharacter.comicID = Comic.comicID
--- AND characterName like '%Duck%'
--- GROUP BY characterName
--- ORDER BY 'Total Valuation' ASC;
+SELECT mainCharacter, characterName, SUM(valuation) AS 'Total Valuation'
+FROM CharacterInfo, ComicCharacter, Comic
+WHERE ComicCharacter.characterID = CharacterInfo.characterID
+AND ComicCharacter.comicID = Comic.comicID
+AND characterName like '%Duck%';
 
 
 -- 2e
