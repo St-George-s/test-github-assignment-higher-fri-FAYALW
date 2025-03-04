@@ -12,11 +12,13 @@
 
 
 -- 2d
-SELECT mainCharacter, characterName, SUM(valuation) AS 'Total Valuation'
+SELECT characterName, SUM(valuation) AS 'Total Valuation'
 FROM CharacterInfo, ComicCharacter, Comic
 WHERE ComicCharacter.characterID = CharacterInfo.characterID
 AND ComicCharacter.comicID = Comic.comicID
-AND characterName like '%Duck%';
+AND characterName like '%Duck%'
+GROUP BY characterName
+ORDER BY valuation DESC;
 
 
 -- 2e
