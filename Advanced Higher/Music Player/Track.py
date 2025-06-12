@@ -19,3 +19,4 @@ class Track: #Creating a blueprint for track objetcs
     def show_track(self): #This is a method to print the title and artist of an object
         print(f"Title: {self.title} - Artist: {self.artist}")
         print(f"Length: {self.length//60} minutes and {self.length%60} seconds")
+
