@@ -6,6 +6,8 @@ class Playlist:
 
     def addTrack():
 
-#    def deleteTrack():
+    def deleteTrack():
 
-#    def findTitle():
+    def findTitle():
+
+    def showTracks():

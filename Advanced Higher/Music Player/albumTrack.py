@@ -6,13 +6,13 @@ Creating a blueprint for AlbumTrack objects
 - Album name is a string
 """
 class AlbumTrack(Track):
-    def __init__(self, title, artist, length, album_name):
+    def __init__(self, title, artist, length, albumName):
         super().__init__(title, artist, length) #Creates an instance of Track object
-        self.album_name = album_name
+        self.albumName = albumName
 
     def get_album(self):
-        return self.album_name
+        return self.albumName
     
     def show_track(self):
-        super().show_track()
-        print(f"Album Name: {self.album_name}")
+        super().showTrack()
+        print(f"Album Name: {self.albumName}")

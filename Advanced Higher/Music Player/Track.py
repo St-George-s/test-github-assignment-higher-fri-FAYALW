@@ -10,12 +10,12 @@ class Track: #Creating a blueprint for track objetcs
         self.artist = artist
         self.length = length
 
-    def is_long(self):
+    def isLong(self):
         if self.length > 240:
             print("True")
         else:
             print("False")
 
-    def show_track(self): #This is a method to print the title and artist of an object
+    def showTrack(self): #This is a method to print the title and artist of an object
         print(f"Title: {self.title} - Artist: {self.artist}")
         print(f"Length: {self.length//60} minutes and {self.length%60} seconds")
