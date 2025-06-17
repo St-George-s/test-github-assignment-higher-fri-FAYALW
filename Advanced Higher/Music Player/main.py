@@ -1,5 +1,6 @@
-from Track import Track
+from track import Track
 from albumTrack import AlbumTrack
+from playList import Playlist
 
 """
 Main program
@@ -17,3 +18,8 @@ mySongFromAlbum.showTrack()
 print(mySongFromAlbum.getAlbum())
 
 #print(fav.getAlbum()) - This will not work as get_album only exists on Track, not AlbumTrack
+
+playlist = Playlist([song,fav], 10, 0.0)
+print(playlist.tracks[0].isLong())
+playlist.addTrack(Track("Defying Gravity", "Idina Menzel", 420))
+playlist.showTracks()

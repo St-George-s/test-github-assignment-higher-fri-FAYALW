@@ -1,4 +1,4 @@
-from Track import Track
+from track import Track
 
 """
 Creating a blueprint for AlbumTrack objects
@@ -10,7 +10,7 @@ class AlbumTrack(Track):
         super().__init__(title, artist, length) #Creates an instance of Track object
         self.albumName = albumName
 
-    def get_album(self):
+    def getAlbum(self):
         return self.albumName
     
     def show_track(self):
