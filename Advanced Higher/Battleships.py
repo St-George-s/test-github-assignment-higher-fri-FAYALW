@@ -1,4 +1,13 @@
 grid = [[".", ".", "s", "s", "s"]]
 
-userGuess = input("Please guess a number from 1-5")
-if userGuess = 
+hits = 0
+while hits > 3:
+    userGuess = input("Please guess a number from 1-5: ")
+    if grid[userGuess] == "s":
+        print("You hit the ship!")
+        hits += 1
+
+    elif grid[userGuess] == ".":
+        print("You missed the ship!")
+        grid[userGuess] = "m"
+
