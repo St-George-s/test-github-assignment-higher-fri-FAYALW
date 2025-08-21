@@ -8,8 +8,8 @@ grid = [[".", ".", "s", "s", "s"],
 
 hits = 0
 while hits < 3:
-    userGuessRow = int(input("Please guess a row from 1-5: "))
-    userGuessColumn = int(input("Please guess a column from 1-5: "))
+    userGuessRow = int(input("Please guess a row from 1-5: "))-1
+    userGuessColumn = int(input("Please guess a column from 1-5: "))-1
     if grid[userGuessRow][userGuessColumn] == "s":
         print("You hit the ship")
         hits += 1
@@ -17,6 +17,3 @@ while hits < 3:
     elif grid[userGuessRow][userGuessColumn] == ".":
         print("You missed the ship!")
         grid[userGuessRow][userGuessColumn] = "m"
-
-
-
