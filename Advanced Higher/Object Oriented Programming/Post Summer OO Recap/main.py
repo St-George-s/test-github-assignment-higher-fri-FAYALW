@@ -18,3 +18,9 @@ class HelpDesk:
         while current is not None:
             print(f"{current.user} reported: {current.issue}")
             current = current.next
+
+hd = HelpDesk()
+hd.log_ticket("fayalw", "Laptop not working")
+hd.log_ticket("deevij", "Phone glitching")
+hd.log_ticket("lucgri", "Ipad not charging")
+hd.show_tickets()
