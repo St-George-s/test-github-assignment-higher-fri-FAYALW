@@ -19,14 +19,15 @@ class HelpDesk:
             print(f"{current.user} reported: {current.issue}")
             current = current.next
 
-    def resolve_ticket():
-        
+    def resolve_ticket(self):
+        self.head = self.head.next
 
-    def search_ticket(user):
+    #def search_ticket(user):
 
 
 hd = HelpDesk()
 hd.log_ticket("fayalw", "Laptop not working")
 hd.log_ticket("deevij", "Phone glitching")
 hd.log_ticket("lucgri", "Ipad not charging")
+hd.resolve_ticket()
 hd.show_tickets()
