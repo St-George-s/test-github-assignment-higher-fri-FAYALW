@@ -29,11 +29,23 @@ class Playlist:
 
 #Implement myself
     def play_backward(self):
-        pass
+        current = self.tail
+        while current:
+            print("Now playing:", current.title)
+            current = current.next
 
 #Searching forward through the playlist
     def find_song_forward(self, title):
         current = self.head
+        while current:
+            if current.title == title:
+                return True
+            current = current.next
+        return False
+    
+#Searching backward through the playlist
+    def find_song_backward(self, title):
+        current = self.tail
         while current:
             if current.title == title:
                 return True
