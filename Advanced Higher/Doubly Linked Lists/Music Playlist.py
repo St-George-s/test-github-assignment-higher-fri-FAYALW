@@ -15,4 +15,11 @@ class Playlist:
             self.head = new_song
             self.tail = new_song
         else:
-            self.tail.next = 
+            self.tail.next = new_song
+            new_song.prev = self.tail
+            self.tail = new_song
+
+    def play_forward(self):
+        current = self.head
+        while current:
+            print("Now playing:")
