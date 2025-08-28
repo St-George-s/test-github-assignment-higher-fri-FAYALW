@@ -3,7 +3,7 @@
   "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
   "features": {},
   "extensions": ["ms-python.python"],
-  "settings": { "workbench.colorTheme": "Default Dark+" },
+  "settings": { "workbench.colorTheme": "Default Light+" },
   "forwardPorts": [3306],
   "postCreateCommand": "bash .devcontainer/init-db.sh"
 }
