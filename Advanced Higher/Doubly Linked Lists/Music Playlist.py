@@ -51,3 +51,8 @@ class Playlist:
                 return True
             current = current.next
         return False
+    
+playlist = Playlist()
+playlist.add_song("Umbrella")
+playlist.add_song("Halo")
+playlist.add_song("Bad Romance")
