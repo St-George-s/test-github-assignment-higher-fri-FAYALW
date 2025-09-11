@@ -1,4 +1,7 @@
--- CREATE DATABASE TravelAgencyAugust;
+-- CREATE DATABASE IF NOT EXISTS project2;
+-- USE project2;
+
+-- -- CREATE DATABASE TravelAgencyAugust;
 
 
 -- CREATE TABLE Resort (
