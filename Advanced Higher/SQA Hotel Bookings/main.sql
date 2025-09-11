@@ -1,9 +1,6 @@
 -- CREATE DATABASE IF NOT EXISTS project2;
 -- USE project2;
 
--- -- CREATE DATABASE TravelAgencyAugust;
-
-
 -- CREATE TABLE Resort (
 -- 	resortID int NOT NULL PRIMARY KEY,
 -- 	resortName varchar(20) NOT NULL,
