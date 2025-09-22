@@ -36,4 +36,5 @@ CREATE TABLE Booking(
     startDate DATE NOT NULL,
     numberOfSessions INT NOT NULL,
     numberInParty INT NOT NULL
+    PRIMARY KEY(classCode, memberNo, startDate)
 )
