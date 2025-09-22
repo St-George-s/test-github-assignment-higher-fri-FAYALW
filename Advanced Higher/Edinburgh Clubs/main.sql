@@ -33,7 +33,7 @@ CREATE TABLE Member(
 CREATE TABLE Booking(
     classCode INT NOT NULL,
     memberNo INT NOT NULL,
-    startDate VARCHAR(10) NOT NULL,
+    startDate DATE NOT NULL,
     numberOfSessions INT NOT NULL,
     numberInParty INT NOT NULL
 )
