@@ -30,11 +30,13 @@ CREATE TABLE Member(
 )
 
 
-CREATE TABLE Booking(
-    classCode INT NOT NULL,
-    memberNo INT NOT NULL,
-    startDate DATE NOT NULL,
-    numberOfSessions INT NOT NULL,
-    numberInParty INT NOT NULL
-    PRIMARY KEY(classCode, memberNo, startDate)
-)
+CREATE TABLE Booking ( 
+  classCode VARCHAR(4) NOT NULL, 
+  memberNo INT NOT NULL, 
+  startDate DATE NOT NULL, 
+  numberOfSessions INT NOT NULL, 
+  numberInParty INT NOT NULL, 
+  PRIMARY KEY (memberNo, classCode, startDate), 
+  FOREIGN KEY (memberNo) REFERENCES Member(memberNo), 
+  FOREIGN KEY (classCode) REFERENCES Class(classCode) 
+); 
