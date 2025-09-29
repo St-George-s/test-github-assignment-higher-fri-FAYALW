@@ -43,7 +43,7 @@ USE SwimClubDB;
 -- ); 
 
 
--- -- CENTRE 
+-- CENTRE 
 -- INSERT INTO Centre VALUES (101, "Edinburgh Meadowbank", "leisure"); 
 -- INSERT INTO Centre VALUES (115, "Glasgow Kelvinhall", "university"); 
 -- INSERT INTO Centre VALUES (132, "St Andrews Community Hub", "community"); 
@@ -51,8 +51,8 @@ USE SwimClubDB;
 -- INSERT INTO Centre VALUES (169, "Portree Sports Hall", "community"); 
 
 
--- -- CLASS 
--- -- classCode, className, centreID, level, termStartDate, sessionType, startTime, pricePerPerson 
+-- CLASS 
+-- classCode, className, centreID, level, termStartDate, sessionType, startTime, pricePerPerson 
 -- INSERT INTO Class (classCode, className, centreID, level, sessionType, startTime, pricePerPerson) 
 -- VALUES ("ED01", "Beginner Breaststroke", 101, 1, "Term", "16:00:00", 8.50); 
 -- INSERT INTO Class VALUES ("ED04", "Improver Front Crawl", 101, 2, "2025-09-01", "Term", "17:00:00", 10.00); 
@@ -78,8 +78,8 @@ USE SwimClubDB;
 -- INSERT INTO Member VALUES (269, "Alba", "McKay", "34a Newton Road", "Dalkeith", "EH22 1FD"); 
 
 
--- -- BOOKING 
--- -- classCode, memberNo, startDate, numberOfSessions, numberInParty 
+-- BOOKING 
+-- classCode, memberNo, startDate, numberOfSessions, numberInParty 
 -- INSERT INTO Booking VALUES ("FW02", 233, "2025-09-22", 4, 1); 
 -- INSERT INTO Booking VALUES ("ED04", 247, "2025-09-29", 6, 2); 
 -- INSERT INTO Booking VALUES ("ED01", 247, "2025-10-06", 4, 1); 
@@ -103,3 +103,31 @@ USE SwimClubDB;
 -- GROUP BY Member.memberNo
 -- HAVING SUM(Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty) >= 120
 -- ORDER BY SUM(Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty) DESC;
+
+-- QUESTION 3
+-- SELECT Centre.centreName, round(AVG(Class.pricePerPerson), 2) AS 'Price Per Person'
+-- FROM Centre, Class
+-- WHERE Centre.centreID = Class.centreID
+-- GROUP BY Centre.centreName
+-- HAVING AVG(Class.pricePerPerson) > 9;
+
+-- QUESTION 4
+-- SELECT Class.className
+-- FROM Class, Centre
+-- WHERE Class.centreID = Centre.centreID
+-- AND centreType != 'University'
+
+-- QUESTION 5
+-- SELECT Member.firstName, Member.surname, COUNT(Member.memberNo) AS 'Bookings'
+-- FROM Member, Booking
+-- WHERE Member.memberNo = Booking.memberNo
+-- GROUP BY Member.memberNo
+-- HAVING COUNT(Member.memberNo) BETWEEN 2 AND 4;
+
+-- QUESTION 6
+SELECT Member.surname, Member.postcode, Member.town
+FROM Member
+WHERE Member.town BETWEEN 'E' AND 'M'
+ORDER BY Member.town;
+
+-- QUESTION 7
