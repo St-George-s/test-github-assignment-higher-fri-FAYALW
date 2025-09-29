@@ -125,9 +125,17 @@ USE SwimClubDB;
 -- HAVING COUNT(Member.memberNo) BETWEEN 2 AND 4;
 
 -- QUESTION 6
-SELECT Member.surname, Member.postcode, Member.town
-FROM Member
-WHERE Member.town BETWEEN 'E' AND 'M'
-ORDER BY Member.town;
+-- SELECT Member.surname, Member.postcode, Member.town
+-- FROM Member
+-- WHERE Member.town BETWEEN 'E' AND 'M'
+-- ORDER BY Member.town;
 
 -- QUESTION 7
+-- SELECT Class.className, Class.sessionType
+-- FROM Class
+-- WHERE Class.sessionType IN ('Drop-in', 'Term', 'Intensive');
+
+-- QUESTION 8
+-- SELECT Centre.centreName
+-- FROM Centre
+-- WHERE Centre.centreType NOT IN ('Community', 'Leisure');
