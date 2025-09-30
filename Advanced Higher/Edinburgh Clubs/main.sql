@@ -139,3 +139,46 @@ USE SwimClubDB;
 -- SELECT Centre.centreName
 -- FROM Centre
 -- WHERE Centre.centreType NOT IN ('Community', 'Leisure');
+
+-- QUESTION 9
+-- SELECT Class.className, MAX(Class.pricePerPerson) AS 'Highest Price Per Person'
+-- FROM Class
+
+-- QUESTION 10
+-- SELECT Class.className, Class.level
+-- FROM Class
+-- HAVING Class.level < AVG(Class.level);
+
+-- QUESTION 11
+-- SELECT Member.firstName, Member.surname, Member.postcode
+-- FROM Member, Booking
+-- WHERE Member.memberNo = Booking.memberNo
+-- AND Member.memberNo != 201
+-- AND Booking.classCode IN(
+--     SELECT Booking.classCode
+--     FROM Booking
+--     WHERE Booking.memberNo = 201
+-- )
+-- GROUP BY Member.postcode;
+
+-- QUESTION 12
+-- SELECT Class.className, Class.level
+-- FROM Class, Booking
+-- WHERE Class.classCode = Booking.classCode
+-- AND Booking.memberNo = '233';
+
+-- QUESTION 13
+SELECT Centre.centreName
+FROM Centre, Class, Booking
+WHERE Centre.centreID = Class.centreID
+AND Class.classCode = Booking.classCode
+AND Booking.memberNo != 233
+GROUP BY Centre.centreName
+
+-- QUESTION 14
+-- SELECT Booking.memberNo, Booking.classCode, (Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty) AS 'Booking Cost'
+-- FROM Booking
+-- WHERE (Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty) > (
+--     SELECT (Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty)
+
+-- )
