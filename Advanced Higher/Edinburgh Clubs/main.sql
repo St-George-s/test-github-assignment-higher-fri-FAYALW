@@ -1,6 +1,7 @@
 -- CREATE DATABASE SwimClubDB;
 USE SwimClubDB;
 
+
 -- CREATE TABLE Centre ( 
 --   centreID INT NOT NULL PRIMARY KEY, 
 --   centreName VARCHAR(40) NOT NULL, 
@@ -95,6 +96,7 @@ USE SwimClubDB;
 -- SELECT className
 -- FROM Class;
 
+
 -- QUESTION 2
 -- SELECT Member.firstname, Member.surname, SUM(Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty) AS 'Total Spend'
 -- FROM Member, Class, Booking 
@@ -104,6 +106,7 @@ USE SwimClubDB;
 -- HAVING SUM(Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty) >= 120
 -- ORDER BY SUM(Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty) DESC;
 
+
 -- QUESTION 3
 -- SELECT Centre.centreName, round(AVG(Class.pricePerPerson), 2) AS 'Price Per Person'
 -- FROM Centre, Class
@@ -111,11 +114,13 @@ USE SwimClubDB;
 -- GROUP BY Centre.centreName
 -- HAVING AVG(Class.pricePerPerson) > 9;
 
+
 -- QUESTION 4
 -- SELECT Class.className
 -- FROM Class, Centre
 -- WHERE Class.centreID = Centre.centreID
 -- AND centreType != 'University'
+
 
 -- QUESTION 5
 -- SELECT Member.firstName, Member.surname, COUNT(Member.memberNo) AS 'Bookings'
@@ -124,30 +129,36 @@ USE SwimClubDB;
 -- GROUP BY Member.memberNo
 -- HAVING COUNT(Member.memberNo) BETWEEN 2 AND 4;
 
+
 -- QUESTION 6
 -- SELECT Member.surname, Member.postcode, Member.town
 -- FROM Member
 -- WHERE Member.town BETWEEN 'E' AND 'M'
 -- ORDER BY Member.town;
 
+
 -- QUESTION 7
 -- SELECT Class.className, Class.sessionType
 -- FROM Class
 -- WHERE Class.sessionType IN ('Drop-in', 'Term', 'Intensive');
+
 
 -- QUESTION 8
 -- SELECT Centre.centreName
 -- FROM Centre
 -- WHERE Centre.centreType NOT IN ('Community', 'Leisure');
 
+
 -- QUESTION 9
 -- SELECT Class.className, MAX(Class.pricePerPerson) AS 'Highest Price Per Person'
 -- FROM Class
+
 
 -- QUESTION 10
 -- SELECT Class.className, Class.level
 -- FROM Class
 -- HAVING Class.level < AVG(Class.level);
+
 
 -- QUESTION 11
 -- SELECT Member.firstName, Member.surname, Member.postcode
@@ -161,24 +172,70 @@ USE SwimClubDB;
 -- )
 -- GROUP BY Member.postcode;
 
+
 -- QUESTION 12
 -- SELECT Class.className, Class.level
 -- FROM Class, Booking
 -- WHERE Class.classCode = Booking.classCode
 -- AND Booking.memberNo = '233';
 
+
 -- QUESTION 13
-SELECT Centre.centreName
-FROM Centre, Class, Booking
-WHERE Centre.centreID = Class.centreID
-AND Class.classCode = Booking.classCode
-AND Booking.memberNo != 233
-GROUP BY Centre.centreName
+-- SELECT Centre.centreName
+-- FROM Centre, Class, Booking
+-- WHERE Centre.centreID = Class.centreID
+-- AND Class.classCode = Booking.classCode
+-- AND Booking.memberNo != 233
+-- GROUP BY Centre.centreName;
+
 
 -- QUESTION 14
 -- SELECT Booking.memberNo, Booking.classCode, (Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty) AS 'Booking Cost'
--- FROM Booking
--- WHERE (Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty) > (
+-- FROM Booking, Class
+-- WHERE Booking.classCode = Class.classCode
+-- AND (Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty) > (
 --     SELECT (Class.pricePerPerson * Booking.numberOfSessions * Booking.numberInParty)
+--     FROM Booking, Member
+--     WHERE Booking.memberNo = Member.memberNo
+--     AND Member.surname IN ('Lowden', 'McKay', 'Gordon')
+-- );
 
+
+-- QUESTION 15
+-- SELECT Class.className, Class.level, Class.sessionType
+-- FROM Class
+-- WHERE Class.level = 3
+-- AND EXISTS(
+--     SELECT Booking.numberInParty
+--     FROM Booking
+--     WHERE Booking.classCode = Class.classCode
+--     AND Booking.numberInParty >= 1
 -- )
+-- ORDER BY Class.sessionType ASC;
+
+
+-- QUESTION 16
+-- SELECT Member.firstName
+-- FROM Member
+-- WHERE NOT EXISTS(
+--     SELECT 1
+--     FROM Booking
+--     WHERE Booking.memberNo = Member.memberNo
+-- );
+
+
+-- QUESTION 17
+-- SELECT Class.className, Class.level, SUM(Booking.numberOfSessions * Booking.numberInParty) AS 'sessionTimesParty'
+-- FROM Class, Booking
+-- WHERE Class.classCode = Booking.classCode
+-- GROUP BY Class.className, Class.level
+-- HAVING SUM(Booking.numberOfSessions * Booking.numberInParty) >(
+--     SELECT COALESCE(SUM(Booking.numberOfSessions * Booking.numberInParty), 0)
+--     FROM Booking
+--     WHERE Booking.memberNo = 218
+-- )
+-- AND Class.level <(
+--     SELECT MAX(level)
+--     FROM Class
+-- )
+-- ORDER BY Class.level ASC;
