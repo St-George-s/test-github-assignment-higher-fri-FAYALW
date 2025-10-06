@@ -204,7 +204,7 @@ USE SwimClubDB;
 -- QUESTION 15
 -- SELECT Class.className, Class.level, Class.sessionType
 -- FROM Class
--- WHERE Class.level = 3
+-- WHERE Class.level = 5
 -- AND EXISTS(
 --     SELECT Booking.numberInParty
 --     FROM Booking
