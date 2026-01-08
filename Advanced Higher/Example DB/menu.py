@@ -35,16 +35,19 @@ def close_db(conn, cur):
 
 
 #Showing all tasks
-def showTasks():
+def showTasks(cur):
     sql = """
     SELECT taskID,
-           taskName,
+           taskName
            categoryID,
            category,
            dueDate,
            completionSatus
     FROM Tasks
     """
+    cur.execute(sql)
+    rows = cur.fetchall()
+    print(rows)
 
 
 #Menu and input validation
@@ -54,3 +57,8 @@ def showMenu():
     print("3 - Mark task")      
     print("4 - View by category")      
     print("5 - Quit program")
+
+
+conn, cur = open_db()
+showTasks(cur)
+showMenu()
