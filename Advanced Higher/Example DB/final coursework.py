@@ -1,3 +1,4 @@
+#MENU
 import mysql.connector
 from dataclasses import dataclass
 from typing import List, Optional
@@ -62,3 +63,14 @@ def showMenu():
 conn, cur = open_db()
 showTasks(cur)
 showMenu()
+
+#FR1 - ADDING TASK
+#FR2 - DISPLAYING TASK DATA
+#FR3&4 - USING A BUBBLE SORT
+#FR5 - DATABASE
+#FR6 - DELETING TASK
+#FR7 - UID
+#FR8 - MARKING TASK
+#FR9 - VIEWING BY CATEGORY
+#FR10 - BLANK VALIDATION
+#FR11 - DATE VALIDATION
