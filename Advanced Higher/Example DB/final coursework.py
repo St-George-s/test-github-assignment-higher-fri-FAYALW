@@ -21,7 +21,7 @@ class Task:
     categoryID: int
     category: str
     dueDate: int
-    completionSatus: str
+    completionStatus: str
 
 
 #Database helpers
