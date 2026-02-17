@@ -5,7 +5,7 @@ USE SwimClubDB;
 -- CREATE TABLE Centre ( 
 --   centreID INT NOT NULL PRIMARY KEY, 
 --   centreName VARCHAR(40) NOT NULL, 
---   centreType VARCHAR(20) NOT NULL 
+--   centreType VARCHAR(20) NOT NULL
 -- ); 
 
 

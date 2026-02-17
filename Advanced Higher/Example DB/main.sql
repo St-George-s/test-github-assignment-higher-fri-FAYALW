@@ -13,4 +13,5 @@ CREATE TABLE IF NOT EXISTS Tasks(
 );
 
 INSERT INTO Tasks(taskID, taskName, categoryID, category, dueDate, completionStatus) VALUES
-(1, "Buy groceries", 3, "Household", "2026-12-12", TRUE);
+(1, "Buy groceries", 3, "Household", "2026-12-12", TRUE),
+(2, "Do homework", 2, "School", "2026-12-12", TRUE);
