@@ -2,7 +2,8 @@
 import mysql.connector
 from dataclasses import dataclass
 from typing import List, Optional
-
+from datetime import date
+from datetime import datetime
 
 #Database configuration
 DB_CONFIG = {
@@ -18,7 +19,6 @@ DB_CONFIG = {
 class Task:
     taskID: int
     taskName: str
-    categoryID: int
     category: str
     dueDate: int
     completionStatus: str
@@ -39,7 +39,6 @@ def showTasks(cur):
     sql = """
     SELECT taskID,
            taskName,
-           categoryID,
            category,
            dueDate,
            completionStatus
@@ -54,7 +53,6 @@ def showSpecificTask(cur):
     sql = """
     SELECT taskID,
            taskName,
-           categoryID,
            category,
            dueDate,
            completionStatus
@@ -70,8 +68,7 @@ def insertTask(cur, taskName):
     sql = """
     INSERT INTO Tasks
     ( 
-    taskName, 
-    categoryID, 
+    taskName,  
     category, 
     dueDate, 
     completionStatus
@@ -104,17 +101,22 @@ if option == 1:
     insertTask(cur, taskName)
 
 
-# #FR1 - ADDING TASK
-# #FR2 - DISPLAYING TASK DATA
-# #FR3&4 - USING A BUBBLE SORT
-# list = Tasks
-# for x in range len(list):
-#     if list[x].completionStatus == "Y":
-#         list[x] = list[x+1]
+#FR1 - ADDING TASK
 
-# #FR5 - DATABASE
-# #FR6 - DELETING TASK
-# #FR7 - UID
+
+#FR2 - DISPLAYING TASK DATA
+
+
+#FR3&4 - USING A BUBBLE SORT
+
+
+#FR5 - DATABASE
+
+
+#FR6 - DELETING TASK
+
+
+#FR7 - UID
 # showMenu
 # number = input("Please enter a number 1-5: ")
 # if number == 1:
@@ -136,7 +138,24 @@ if option == 1:
 
 
 # #FR8 - MARKING TASK
+
+
 # #FR9 - VIEWING BY CATEGORY
+
+
 # #FR10 - BLANK VALIDATION
-# #FR11 - DATE VALIDATION
-# #MAIN - CALLING ALL FUNCTIONS
+def isFieldBlank(input):
+    if not input:
+        print("Please enter something: ")
+
+
+#FR11 - DATE VALIDATION
+def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
+    try:
+        datetime.strptime(date_string, fmt)
+        return True
+    except ValueError:
+        return False
+
+
+#MAIN - CALLING ALL FUNCTIONS
