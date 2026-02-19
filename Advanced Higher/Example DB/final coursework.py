@@ -25,7 +25,7 @@ def close_db(conn, cur):
     conn.close()
 
 
-#SHOWING ALL TASKS
+#Showing all tasks
 def showTasks(cur):
     sql = """
     SELECT taskID,
@@ -40,7 +40,7 @@ def showTasks(cur):
     print(rows)
 
 
-#SHOWING THE MENU
+#Showing the menu
 def showMenu():
     print("1 - Add task")
     print("2 - Delete task")      
@@ -132,18 +132,38 @@ if option == 2:
     deleteTask(cur, taskToDelete)
 
 
-# if option == 3:
+if option == 3:
+    taskToMark = input("Enter the task ID of the task you wish to mark: ")
+    markTask(cur, taskToMark)
 
-# if option == 4:
 
-# if option == 5:
-#     quit()
+if option == 4:
+    categoryToDisplay = input("Enter the category of the tasks you wish to be displayed: ")
+    viewByCategory(cur, categoryToDisplay)
+
+if option == 5:
+    quit()
 
 
 #FR8 - MARKING A TASK
-
+def markTask(taskToMark):
+    sql = """
+    SELECT task
+    FROM Tasks
+    WHERE taskID = taskToMark
+    """
+    cur.execute(sql, )
+    conn.commit()
 
 #FR9 - VIEWING BY CATEGORY
+def viewByCategory(categoryToDisplay):
+    sql = """
+    SELECT task
+    FROM Tasks
+    WHERE category = categoryToDisplay
+    """
+    cur.execute(sql, )
+    conn.commit()
 
 
 #FR10 - BLANK VALIDATION
