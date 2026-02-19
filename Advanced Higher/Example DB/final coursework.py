@@ -1,4 +1,4 @@
-#MENU
+#Imports
 import mysql.connector
 from dataclasses import dataclass
 from typing import List, Optional
@@ -14,16 +14,6 @@ DB_CONFIG = {
     "port": 3306
 }
 
-
-#FR2 - Record structure/array of records
-class Task:
-    taskID: int
-    taskName: str
-    category: str
-    dueDate: int
-    completionStatus: str
-
-
 #Database helpers
 def open_db():
     conn = mysql.connector.connect(**DB_CONFIG)
@@ -34,7 +24,8 @@ def close_db(conn, cur):
     cur.close()
     conn.close()
 
-#Showing all tasks
+
+#SHOWING ALL TASKS
 def showTasks(cur):
     sql = """
     SELECT taskID,
@@ -48,42 +39,8 @@ def showTasks(cur):
     rows = cur.fetchall()
     print(rows)
 
-#Showing all tasks
-def showSpecificTask(cur):
-    sql = """
-    SELECT taskID,
-           taskName,
-           category,
-           dueDate,
-           completionStatus
-    FROM Tasks
-    WHERE taskID = %s AND category = %s;
-    """
-    cur.execute(sql, (3,"Household"))
-    rows = cur.fetchall()
-    print(rows)
 
-#Showing all tasks
-def insertTask(cur, taskName):
-    sql = """
-    INSERT INTO Tasks
-    ( 
-    taskName,  
-    category, 
-    dueDate, 
-    completionStatus
-    ) VALUES(
-        %s, 
-        3, 
-        "Household", 
-        "2026-12-12", 
-        TRUE
-    )
-    """
-    cur.execute(sql, (taskName, ))
-    conn.commit()
-
-#Menu and input validation
+#SHOWING THE MENU
 def showMenu():
     print("1 - Add task")
     print("2 - Delete task")      
@@ -92,6 +49,70 @@ def showMenu():
     print("5 - Quit program")
 
 
+#FR1 - ADDING A TASK
+def insertTask(cur, taskName, category, dueDate, completionStatus):
+    sql = """
+    INSERT INTO Tasks( 
+    taskName,  
+    category, 
+    dueDate, 
+    completionStatus
+    ) 
+    VALUES(
+        %s, 
+        %s, 
+        %s, 
+        %s
+    )
+    """
+    cur.execute(sql, (taskName, category, dueDate, completionStatus, ))
+    conn.commit()
+
+
+#FR2 - USING AN ARRAY OF RECORDS TO STORE AND DISPLAY TASK DATA
+class Task:
+    def __init__(self, taskID, taskName, category, dueDate, completionStatus):
+        self.taskID = taskID
+        self.taskName = taskName
+        self.category = category
+        self.dueDate = dueDate
+        self.completionStatus = completionStatus
+
+def buildArray():
+    cur.execute("SELECT * FROM Tasks")
+    rows = cur.fetchall()
+    tasks_array = rows
+
+tasksArray = buildArray()
+
+
+#FR3&4 - USING & APPLYING A BUBBLE SORT
+def sortTasksByStatus(tasksArray):
+    n = len(tasksArray)
+    swapped = True
+    
+    while swapped:
+        swapped = False
+        for i in range(0, n-1):
+            if tasksArray[i].completionStatus == True:
+                tasksArray[i], tasksArray[i+1] = tasksArray[i+1], tasksArray[i]
+                swapped = True
+        n-=1
+
+
+#FR5 - DATABASE
+
+
+#FR6 - DELETING A TASK
+def deleteTask(taskToDelete):
+    sql = """
+    DELETE FROM Tasks
+    WHERE taskID = taskToDelete
+    """
+    cur.execute(sql, )
+    conn.commit()
+
+#FR7 - UID
 conn, cur = open_db()
 showTasks(cur)
 showMenu()
@@ -99,51 +120,33 @@ option = int(input("Enter option: "))
 if option == 1:
     taskName = input("Enter task name: ")
     insertTask(cur, taskName)
+    category = input("Enter category name: ")
+    insertTask(cur, category)
+    dueDate = input("Enter due date: ")
+    insertTask(cur, dueDate)
+    completionStatus = input("Is the task complete? True or False: ")
+    insertTask(cur, completionStatus)
+
+if option == 2:
+    taskToDelete = input("Enter the task ID of the task you wish to delete: ")
+    deleteTask(cur, taskToDelete)
 
 
-#FR1 - ADDING TASK
+# if option == 3:
 
+# if option == 4:
 
-#FR2 - DISPLAYING TASK DATA
-
-
-#FR3&4 - USING A BUBBLE SORT
-
-
-#FR5 - DATABASE
-
-
-#FR6 - DELETING TASK
-
-
-#FR7 - UID
-# showMenu
-# number = input("Please enter a number 1-5: ")
-# if number == 1:
-#     taskName = input("Please enter the name of your task: ")
-#     category = input("Please enter the category of your task: ")
-#     dueDate = input("Please enter the due date of your task: ")
-
-# if number == 2:
-#     taskToDelete = input("Please enter the task ID of the task that you wish to delete: ")
-
-# if number == 3:
-#     chosenTaskID = input("Please enter the task ID of the task that you wish to mark: ")
-
-# if number == 4:
-#     chosenCategory = input("Please enter the category of task that you would like to view: ")
-
-# if number == 5:
+# if option == 5:
 #     quit()
 
 
-# #FR8 - MARKING TASK
+#FR8 - MARKING A TASK
 
 
-# #FR9 - VIEWING BY CATEGORY
+#FR9 - VIEWING BY CATEGORY
 
 
-# #FR10 - BLANK VALIDATION
+#FR10 - BLANK VALIDATION
 def isFieldBlank(input):
     if not input:
         print("Please enter something: ")
