@@ -50,22 +50,20 @@ def showMenu():
 
 
 #FR1 - ADDING A TASK
-def insertTask(cur, taskName, category, dueDate, completionStatus):
+def insertTask(cur, taskName, category, dueDate, ):
     sql = """
     INSERT INTO Tasks( 
     taskName,  
     category, 
-    dueDate, 
-    completionStatus
+    dueDate
     ) 
     VALUES(
         %s, 
         %s, 
         %s, 
-        %s
     )
     """
-    cur.execute(sql, (taskName, category, dueDate, completionStatus, ))
+    cur.execute(sql, (taskName, category, dueDate, ))
     conn.commit()
 
 
@@ -152,7 +150,6 @@ def viewByCategory(cur, categoryToDisplay):
 #FR10 - BLANK VALIDATION
 def isFieldBlank(input):
     if not input:
-        print("Please enter something: ")
         return True
     return False
 
@@ -173,10 +170,18 @@ showMenu()
 option = int(input("Enter option: "))
 if option == 1:
     taskName = input("Enter task name: ")
+    while isFieldBlank(taskName) == True:
+        print("Please enter something")
+        
     category = input("Enter category name: ")
+    while isFieldBlank(category) == True:
+        print("Please enter something")
     dueDate = input("Enter due date: ")
-    completionStatus = input("Is the task complete? True or False: ")
-    insertTask(cur, taskName, category, dueDate, completionStatus)
+    while isFieldBlank(dueDate) == True and isDateValid(dueDate) == True:
+        print("Please enter something")
+    completionStatus = False
+    insertTask(cur, taskName, category, dueDate, )
+
 
 if option == 2:
     taskToDelete = input("Enter the task ID of the task you wish to delete: ")
