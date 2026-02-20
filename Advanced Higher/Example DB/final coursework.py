@@ -98,6 +98,17 @@ conn, cur = open_db()
 tasksArray = buildArray(cur)
 
 
+def displayTasksArray(tasksArray):
+    for task in tasksArray:
+        print(
+            task.taskID,
+            task.taskName,
+            task.category,
+            task.dueDate,
+            task.completionStatus
+        )
+
+
 #FR3&4 - USING & APPLYING A BUBBLE SORT
 def sortTasksByStatus(tasksArray):
     n = len(tasksArray)
@@ -167,9 +178,10 @@ def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
 
 #FR7 - UID
 # conn, cur = open_db()
-sortTasksByStatus(tasksArray)
-showTasks(cur)
 while True:
+    tasksArray = buildArray(cur)
+    sortTasksByStatus(tasksArray)
+    displayTasksArray(tasksArray)
     showMenu()
     option = None
     try:
