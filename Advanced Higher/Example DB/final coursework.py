@@ -50,7 +50,7 @@ def showMenu():
 
 
 #FR1 - ADDING A TASK
-def insertTask(cur, taskName, category, dueDate, ):
+def insertTask(conn, cur, taskName, category, dueDate, ):
     sql = """
     INSERT INTO Tasks( 
     taskName,  
@@ -60,7 +60,7 @@ def insertTask(cur, taskName, category, dueDate, ):
     VALUES(
         %s, 
         %s, 
-        %s, 
+        %s
     )
     """
     cur.execute(sql, (taskName, category, dueDate, ))
@@ -116,7 +116,7 @@ def sortTasksByStatus(tasksArray):
 
 
 #FR6 - DELETING A TASK
-def deleteTask(cur, taskToDelete):
+def deleteTask(conn, cur, taskToDelete):
     sql = """
     DELETE FROM Tasks
     WHERE taskID = %s
@@ -126,7 +126,7 @@ def deleteTask(cur, taskToDelete):
 
 
 #FR8 - MARKING A TASK
-def markTask(cur, taskToMark):
+def markTask(conn, cur, taskToMark):
     sql = """
     UPDATE Tasks
     SET completionStatus = NOT completionStatus
@@ -145,6 +145,8 @@ def viewByCategory(cur, categoryToDisplay):
     WHERE category = %s
     """
     cur.execute(sql, (categoryToDisplay, ))
+    rows = cur.fetchall()
+    print(rows)
 
 
 #FR10 - BLANK VALIDATION
@@ -164,43 +166,54 @@ def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
     
 
 #FR7 - UID
-conn, cur = open_db()
+# conn, cur = open_db()
+sortTasksByStatus(tasksArray)
 showTasks(cur)
-showMenu()
-option = int(input("Enter option: "))
-if option == 1:
-    taskName = input("Enter task name: ")
-    while isFieldBlank(taskName) == True:
-        print("Please enter something")
-        
-    category = input("Enter category name: ")
-    while isFieldBlank(category) == True:
-        print("Please enter something")
-    dueDate = input("Enter due date: ")
-    while isFieldBlank(dueDate) == True and isDateValid(dueDate) == True:
-        print("Please enter something")
-    completionStatus = False
-    insertTask(cur, taskName, category, dueDate, )
-
-
-if option == 2:
-    taskToDelete = input("Enter the task ID of the task you wish to delete: ")
-    deleteTask(cur, taskToDelete)
-
-
-if option == 3:
-    taskToMark = input("Enter the task ID of the task you wish to mark: ")
-    if completionStatus.lower() == "true":
-        completionStatus = True
-    else:
+while True:
+    showMenu()
+    option = None
+    try:
+        option = int(input("Enter option: "))
+    except ValueError:
+        print("Please enter a number")
+    if option == 1:
+        taskName = input("Enter a task name: ")
+        while isFieldBlank(taskName):
+            print("Please enter something")
+            taskName = input("Enter a task name: ")
+        category = input("Enter a category: ")
+        while isFieldBlank(category):
+            print("Please enter something")
+            category = input("Enter a category: ")
+        dueDate = input("Enter due date: ")
+        while isFieldBlank(dueDate) or not isDateValid(dueDate):
+            print("Enter a valid date (YYYY-MM-DD)")
+            dueDate = input("Enter due date: ")
         completionStatus = False
-    markTask(cur, taskToMark)
+        insertTask(conn, cur, taskName, category, dueDate, )
 
 
-if option == 4:
-    categoryToDisplay = input("Enter the category of the tasks you wish to be displayed: ")
-    viewByCategory(cur, categoryToDisplay)
+    if option == 2:
+        taskToDelete = input("Enter the task ID of the task you wish to delete: ")
+        deleteTask(conn, cur, taskToDelete)
 
 
-if option == 5:
-    quit()
+    if option == 3:
+        taskToMark = input("Enter the task ID of the task you wish to mark: ")
+        # if completionStatus.lower() == "true":
+        #     completionStatus = True
+        # else:
+        #     completionStatus = False
+        markTask(conn, cur, taskToMark)
+
+
+    if option == 4:
+        categoryToDisplay = input("Enter the category of the tasks you wish to be displayed: ")
+        viewByCategory(cur, categoryToDisplay)
+
+
+    if option == 5:
+        quit()
+
+#CALLING FUNCTIONS
+close_db(conn, cur)

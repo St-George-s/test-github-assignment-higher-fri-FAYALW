@@ -14,3 +14,6 @@ CREATE TABLE IF NOT EXISTS Tasks(
 INSERT INTO Tasks(taskID, taskName, category, dueDate, completionStatus) VALUES
 (1, "Buy groceries", "Household", "2026-12-12", TRUE),
 (2, "Do homework", "School", "2026-12-12", TRUE);
+
+SELECT *
+FROM Tasks
