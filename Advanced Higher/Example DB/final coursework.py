@@ -5,6 +5,7 @@ from typing import List, Optional
 from datetime import date
 from datetime import datetime
 
+
 #Database configuration
 DB_CONFIG = {
     "host": "127.0.0.1",
@@ -13,6 +14,7 @@ DB_CONFIG = {
     "database": "project1",
     "port": 3306
 }
+
 
 #Database helpers
 def open_db():
@@ -76,6 +78,8 @@ class Task:
         self.dueDate = dueDate
         self.completionStatus = completionStatus
 
+
+#Building the array
 def buildArray(cur):
     cur.execute("SELECT * FROM Tasks")
     rows = cur.fetchall()
@@ -98,6 +102,7 @@ conn, cur = open_db()
 tasksArray = buildArray(cur)
 
 
+#Displaying the tasks array
 def displayTasksArray(tasksArray):
     for task in tasksArray:
         print(
@@ -177,7 +182,7 @@ def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
     
 
 #FR7 - UID
-# conn, cur = open_db()
+conn, cur = open_db()
 while True:
     tasksArray = buildArray(cur)
     sortTasksByStatus(tasksArray)
@@ -225,7 +230,8 @@ while True:
 
 
     if option == 5:
-        quit()
+        break
 
-#CALLING FUNCTIONS
+
 close_db(conn, cur)
+print("Database connection closed.")
