@@ -78,12 +78,26 @@ class Task:
         self.dueDate = dueDate
         self.completionStatus = completionStatus
 
-def buildArray():
+def buildArray(cur):
     cur.execute("SELECT * FROM Tasks")
     rows = cur.fetchall()
-    tasks_array = rows
 
-tasksArray = buildArray()
+    tasks_array = []
+
+    for row in rows:
+        task = Task(
+            taskID=row[0],
+            taskName=row[1],
+            category=row[2],
+            dueDate=row[3],
+            completionStatus=bool(row[4])
+        )
+        tasks_array.append(task)
+
+    return tasks_array
+
+conn, cur = open_db()
+tasksArray = buildArray(cur)
 
 
 #FR3&4 - USING & APPLYING A BUBBLE SORT
@@ -104,72 +118,43 @@ def sortTasksByStatus(tasksArray):
 
 
 #FR6 - DELETING A TASK
-def deleteTask(taskToDelete):
+def deleteTask(cur, taskToDelete):
     sql = """
     DELETE FROM Tasks
-    WHERE taskID = taskToDelete
+    WHERE taskID = %s
     """
-    cur.execute(sql, )
+    cur.execute(sql, (taskToDelete, ))
     conn.commit()
-
-#FR7 - UID
-conn, cur = open_db()
-showTasks(cur)
-showMenu()
-option = int(input("Enter option: "))
-if option == 1:
-    taskName = input("Enter task name: ")
-    insertTask(cur, taskName)
-    category = input("Enter category name: ")
-    insertTask(cur, category)
-    dueDate = input("Enter due date: ")
-    insertTask(cur, dueDate)
-    completionStatus = input("Is the task complete? True or False: ")
-    insertTask(cur, completionStatus)
-
-if option == 2:
-    taskToDelete = input("Enter the task ID of the task you wish to delete: ")
-    deleteTask(cur, taskToDelete)
-
-
-if option == 3:
-    taskToMark = input("Enter the task ID of the task you wish to mark: ")
-    markTask(cur, taskToMark)
-
-
-if option == 4:
-    categoryToDisplay = input("Enter the category of the tasks you wish to be displayed: ")
-    viewByCategory(cur, categoryToDisplay)
-
-if option == 5:
-    quit()
 
 
 #FR8 - MARKING A TASK
-def markTask(taskToMark):
+def markTask(cur, taskToMark):
     sql = """
-    SELECT task
-    FROM Tasks
-    WHERE taskID = taskToMark
+    UPDATE Tasks
+    SET completionStatus = NOT completionStatus
+    WHERE taskID = %s
     """
-    cur.execute(sql, )
+    
+    cur.execute(sql, (taskToMark,))
     conn.commit()
 
-#FR9 - VIEWING BY CATEGORY
-def viewByCategory(categoryToDisplay):
+
+#FR9 - VIEWING BY CATEGORY    
+def viewByCategory(cur, categoryToDisplay):
     sql = """
-    SELECT task
+    SELECT *
     FROM Tasks
-    WHERE category = categoryToDisplay
+    WHERE category = %s
     """
-    cur.execute(sql, )
-    conn.commit()
+    cur.execute(sql, (categoryToDisplay, ))
 
 
 #FR10 - BLANK VALIDATION
 def isFieldBlank(input):
     if not input:
         print("Please enter something: ")
+        return True
+    return False
 
 
 #FR11 - DATE VALIDATION
@@ -179,6 +164,38 @@ def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
         return True
     except ValueError:
         return False
+    
+
+#FR7 - UID
+conn, cur = open_db()
+showTasks(cur)
+showMenu()
+option = int(input("Enter option: "))
+if option == 1:
+    taskName = input("Enter task name: ")
+    category = input("Enter category name: ")
+    dueDate = input("Enter due date: ")
+    completionStatus = input("Is the task complete? True or False: ")
+    insertTask(cur, taskName, category, dueDate, completionStatus)
+
+if option == 2:
+    taskToDelete = input("Enter the task ID of the task you wish to delete: ")
+    deleteTask(cur, taskToDelete)
 
 
-#MAIN - CALLING ALL FUNCTIONS
+if option == 3:
+    taskToMark = input("Enter the task ID of the task you wish to mark: ")
+    if completionStatus.lower() == "true":
+        completionStatus = True
+    else:
+        completionStatus = False
+    markTask(cur, taskToMark)
+
+
+if option == 4:
+    categoryToDisplay = input("Enter the category of the tasks you wish to be displayed: ")
+    viewByCategory(cur, categoryToDisplay)
+
+
+if option == 5:
+    quit()
