@@ -183,6 +183,14 @@ def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
         return False
     
 
+#INPUT VALIDATION
+def isInputInArrayOfRecords(input, tasksArray, item):
+    for task in tasksArray:
+        if input in tasksArray[task].item:
+            return True
+    return False
+
+
 #FR7 - UID
 conn, cur = open_db()
 while True:
@@ -191,10 +199,6 @@ while True:
     displayTasksArray(tasksArray)
     showMenu()
     option = None
-    try:
-        option = int(input("Enter option: "))
-    except ValueError:
-        print("Please enter a number")
     if option == 1:
         taskName = input("Enter a task name: ")
         while isFieldBlank(taskName):
@@ -213,23 +217,27 @@ while True:
 
 
     if option == 2:
-        try:
-            taskToDelete = int(input("Enter the task ID of the task you wish to delete: "))
-            deleteTask(conn, cur, taskToDelete)
-        except ValueError:
-            print("Please enter a valid number")
+        taskToDelete = int(input("Enter the task ID of the task you wish to delete: "))
+        while isInputInArrayOfRecords(taskToDelete, tasksArray, 0):
+            print("Enter a valid task ID")
+            taskToDelete = int(input("Enter a task ID"))
+        deleteTask(conn, cur, taskToDelete)
         
 
     if option == 3:
-        try:
-            taskToMark = input("Enter the task ID of the task you wish to mark: ")
-            markTask(conn, cur, taskToMark)
-        except ValueError:
-            print("Please enter a valid number")
+        taskToMark = input("Enter the task ID of the task you wish to mark: ")
+        while isInputInArrayOfRecords(taskToMark, tasksArray, 0):
+            print("Enter a valid task ID")
+            taskToMark = int(input("Enter a task ID"))
+        
+        markTask(conn, cur, taskToMark)
 
 
     if option == 4:
         categoryToDisplay = input("Enter the category of the tasks you wish to be displayed: ")
+        while isInputInArrayOfRecords(categoryToDisplay, tasksArray, 2):
+            print("Enter a valid category")
+            categoryToDisplay = int(input("Enter a category"))
         viewByCategory(cur, categoryToDisplay)
 
 
