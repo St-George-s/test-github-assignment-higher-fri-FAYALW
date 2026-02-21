@@ -52,20 +52,22 @@ def showMenu():
 
 
 #FR1 - ADDING A TASK
-def insertTask(conn, cur, taskName, category, dueDate, ):
+def insertTask(conn, cur, taskName, category, dueDate, completionStatus, ):
     sql = """
     INSERT INTO Tasks( 
     taskName,  
     category, 
-    dueDate
+    dueDate,
+    completionStatus
     ) 
     VALUES(
         %s, 
         %s, 
+        %s,
         %s
     )
     """
-    cur.execute(sql, (taskName, category, dueDate, ))
+    cur.execute(sql, (taskName, category, dueDate, completionStatus, ))
     conn.commit()
 
 
@@ -98,8 +100,7 @@ def buildArray(cur):
 
     return tasks_array
 
-conn, cur = open_db()
-tasksArray = buildArray(cur)
+
 
 
 #Displaying the tasks array
@@ -162,7 +163,8 @@ def viewByCategory(cur, categoryToDisplay):
     """
     cur.execute(sql, (categoryToDisplay, ))
     rows = cur.fetchall()
-    print(rows)
+    for row in rows:
+        print(f"taskID: {row[0]} | taskName: {row[1]} | category: {row[2]} | dueDate: {row[3]} | completionStatus: {row[4]}")
 
 
 #FR10 - BLANK VALIDATION
@@ -207,21 +209,23 @@ while True:
             print("Enter a valid date (YYYY-MM-DD)")
             dueDate = input("Enter due date: ")
         completionStatus = False
-        insertTask(conn, cur, taskName, category, dueDate, )
+        insertTask(conn, cur, taskName, category, dueDate, completionStatus, )
 
 
     if option == 2:
-        taskToDelete = input("Enter the task ID of the task you wish to delete: ")
-        deleteTask(conn, cur, taskToDelete)
-
+        try:
+            taskToDelete = int(input("Enter the task ID of the task you wish to delete: "))
+            deleteTask(conn, cur, taskToDelete)
+        except ValueError:
+            print("Please enter a valid number")
+        
 
     if option == 3:
-        taskToMark = input("Enter the task ID of the task you wish to mark: ")
-        # if completionStatus.lower() == "true":
-        #     completionStatus = True
-        # else:
-        #     completionStatus = False
-        markTask(conn, cur, taskToMark)
+        try:
+            taskToMark = input("Enter the task ID of the task you wish to mark: ")
+            markTask(conn, cur, taskToMark)
+        except ValueError:
+            print("Please enter a valid number")
 
 
     if option == 4:
