@@ -1,0 +1,249 @@
+#Imports
+import mysql.connector
+from dataclasses import dataclass
+from typing import List, Optional
+from datetime import date
+from datetime import datetime
+
+
+#Database configuration
+DB_CONFIG = {
+    "host": "127.0.0.1",
+    "user": "student",
+    "password": "studentpw",
+    "database": "project1",
+    "port": 3306
+}
+
+
+#Database helpers
+def open_db():
+    conn = mysql.connector.connect(**DB_CONFIG)
+    cur = conn.cursor()
+    return conn, cur
+
+def close_db(conn, cur):
+    cur.close()
+    conn.close()
+
+
+#Showing all tasks
+def showTasks(cur):
+    sql = """
+    SELECT taskID,
+           taskName,
+           category,
+           dueDate,
+           completionStatus
+    FROM Tasks;
+    """
+    cur.execute(sql, )
+    rows = cur.fetchall()
+    print(rows)
+
+
+#Showing the menu
+def showMenu():
+    print("1 - Add task")
+    print("2 - Delete task")      
+    print("3 - Mark task")      
+    print("4 - View by category")      
+    print("5 - Quit program")
+
+
+#FR1 - ADDING A TASK
+def insertTask(conn, cur, taskName, category, dueDate, completionStatus, ):
+    sql = """
+    INSERT INTO Tasks( 
+    taskName,  
+    category, 
+    dueDate,
+    completionStatus
+    ) 
+    VALUES(
+        %s, 
+        %s, 
+        %s,
+        %s
+    )
+    """
+    cur.execute(sql, (taskName, category, dueDate, completionStatus, ))
+    conn.commit()
+
+
+#FR2 - USING AN ARRAY OF RECORDS TO STORE AND DISPLAY TASK DATA
+class Task:
+    def __init__(self, taskID, taskName, category, dueDate, completionStatus):
+        self.taskID = taskID
+        self.taskName = taskName
+        self.category = category
+        self.dueDate = dueDate
+        self.completionStatus = completionStatus
+
+
+#Building the array
+def buildArray(cur):
+    cur.execute("SELECT * FROM Tasks")
+    rows = cur.fetchall()
+
+    tasks_array = []
+
+    for row in rows:
+        task = Task(
+            taskID=row[0],
+            taskName=row[1],
+            category=row[2],
+            dueDate=row[3],
+            completionStatus=bool(row[4])
+        )
+        tasks_array.append(task)
+
+    return tasks_array
+
+
+
+
+#Displaying the tasks array
+def displayTasksArray(tasksArray):
+    for task in tasksArray:
+        print(
+            task.taskID,
+            task.taskName,
+            task.category,
+            task.dueDate,
+            task.completionStatus
+        )
+
+
+#FR3&4 - USING & APPLYING A BUBBLE SORT
+def sortTasksByStatus(tasksArray):
+    n = len(tasksArray)
+    swapped = True
+    
+    while swapped:
+        swapped = False
+        for i in range(0, n-1):
+            if tasksArray[i].completionStatus == True:
+                tasksArray[i], tasksArray[i+1] = tasksArray[i+1], tasksArray[i]
+                swapped = True
+        n-=1
+
+
+#FR5 - DATABASE
+
+
+#FR6 - DELETING A TASK
+def deleteTask(conn, cur, taskToDelete):
+    sql = """
+    DELETE FROM Tasks
+    WHERE taskID = %s
+    """
+    cur.execute(sql, (taskToDelete, ))
+    conn.commit()
+
+
+#FR8 - MARKING A TASK
+def markTask(conn, cur, taskToMark):
+    sql = """
+    UPDATE Tasks
+    SET completionStatus = NOT completionStatus
+    WHERE taskID = %s
+    """
+    
+    cur.execute(sql, (taskToMark,))
+    conn.commit()
+
+
+#FR9 - VIEWING BY CATEGORY    
+def viewByCategory(cur, categoryToDisplay):
+    sql = """
+    SELECT *
+    FROM Tasks
+    WHERE category = %s
+    """
+    cur.execute(sql, (categoryToDisplay, ))
+    rows = cur.fetchall()
+    for row in rows:
+        print(f"taskID: {row[0]} | taskName: {row[1]} | category: {row[2]} | dueDate: {row[3]} | completionStatus: {row[4]}")
+
+
+#FR10 - BLANK VALIDATION
+def isFieldBlank(input):
+    if not input:
+        return True
+    return False
+
+
+#FR11 - DATE VALIDATION
+def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
+    try:
+        datetime.strptime(date_string, fmt)
+        return True
+    except ValueError:
+        return False
+    
+
+#INPUT VALIDATION
+def isInputInArrayOfRecords(input, tasksArray, item):
+    for task in tasksArray:
+        if input in tasksArray[task].item:
+            return True
+    return False
+
+
+#FR7 - UID
+conn, cur = open_db()
+while True:
+    tasksArray = buildArray(cur)
+    sortTasksByStatus(tasksArray)
+    displayTasksArray(tasksArray)
+    showMenu()
+    option = None
+    if option == 1:
+        taskName = input("Enter a task name: ")
+        while isFieldBlank(taskName):
+            print("Please enter something")
+            taskName = input("Enter a task name: ")
+        category = input("Enter a category: ")
+        while isFieldBlank(category):
+            print("Please enter something")
+            category = input("Enter a category: ")
+        dueDate = input("Enter due date: ")
+        while isFieldBlank(dueDate) or not isDateValid(dueDate):
+            print("Enter a valid date (YYYY-MM-DD)")
+            dueDate = input("Enter due date: ")
+        completionStatus = False
+        insertTask(conn, cur, taskName, category, dueDate, completionStatus, )
+
+
+    if option == 2:
+        taskToDelete = int(input("Enter the task ID of the task you wish to delete: "))
+        while isInputInArrayOfRecords(taskToDelete, tasksArray, 0):
+            print("Enter a valid task ID")
+            taskToDelete = int(input("Enter a task ID"))
+        deleteTask(conn, cur, taskToDelete)
+        
+
+    if option == 3:
+        taskToMark = input("Enter the task ID of the task you wish to mark: ")
+        while isInputInArrayOfRecords(taskToMark, tasksArray, 0):
+            print("Enter a valid task ID")
+            taskToMark = int(input("Enter a task ID"))
+        
+        markTask(conn, cur, taskToMark)
+
+
+    if option == 4:
+        categoryToDisplay = input("Enter the category of the tasks you wish to be displayed: ")
+        while isInputInArrayOfRecords(categoryToDisplay, tasksArray, 2):
+            print("Enter a valid category")
+            categoryToDisplay = int(input("Enter a category"))
+        viewByCategory(cur, categoryToDisplay)
+
+
+    if option == 5:
+        break
+
+
+close_db(conn, cur)
+print("Database connection closed.")
