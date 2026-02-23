@@ -16,4 +16,4 @@ INSERT INTO Tasks(taskID, taskName, category, dueDate, completionStatus) VALUES
 (2, "Do homework", "School", "2026-12-12", TRUE);
 
 SELECT *
-FROM Tasks
+FROM Tasks;

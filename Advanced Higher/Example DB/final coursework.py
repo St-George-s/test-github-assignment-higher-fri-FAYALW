@@ -101,8 +101,6 @@ def buildArray(cur):
     return tasks_array
 
 
-
-
 #Displaying the tasks array
 def displayTasksArray(tasksArray):
     for task in tasksArray:
@@ -129,9 +127,6 @@ def sortTasksByStatus(tasksArray):
         n-=1
 
 
-#FR5 - DATABASE
-
-
 #FR6 - DELETING A TASK
 def deleteTask(conn, cur, taskToDelete):
     sql = """
@@ -149,7 +144,6 @@ def markTask(conn, cur, taskToMark):
     SET completionStatus = NOT completionStatus
     WHERE taskID = %s
     """
-    
     cur.execute(sql, (taskToMark,))
     conn.commit()
 
@@ -183,14 +177,6 @@ def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
         return False
     
 
-#INPUT VALIDATION
-def isInputInArrayOfRecords(input, tasksArray, item):
-    for task in tasksArray:
-        if input in tasksArray[task].item:
-            return True
-    return False
-
-
 #FR7 - UID
 conn, cur = open_db()
 while True:
@@ -198,7 +184,9 @@ while True:
     sortTasksByStatus(tasksArray)
     displayTasksArray(tasksArray)
     showMenu()
-    option = None
+    option = int(input("Enter an option number: "))
+    while option not in [1,2,3,4,5]:
+        print("Please enter something")
     if option == 1:
         taskName = input("Enter a task name: ")
         while isFieldBlank(taskName):
@@ -218,26 +206,16 @@ while True:
 
     if option == 2:
         taskToDelete = int(input("Enter the task ID of the task you wish to delete: "))
-        while isInputInArrayOfRecords(taskToDelete, tasksArray, 0):
-            print("Enter a valid task ID")
-            taskToDelete = int(input("Enter a task ID"))
         deleteTask(conn, cur, taskToDelete)
         
 
     if option == 3:
         taskToMark = input("Enter the task ID of the task you wish to mark: ")
-        while isInputInArrayOfRecords(taskToMark, tasksArray, 0):
-            print("Enter a valid task ID")
-            taskToMark = int(input("Enter a task ID"))
-        
         markTask(conn, cur, taskToMark)
 
 
     if option == 4:
         categoryToDisplay = input("Enter the category of the tasks you wish to be displayed: ")
-        while isInputInArrayOfRecords(categoryToDisplay, tasksArray, 2):
-            print("Enter a valid category")
-            categoryToDisplay = int(input("Enter a category"))
         viewByCategory(cur, categoryToDisplay)
 
 
