@@ -2,6 +2,11 @@
 set -euo pipefail
  
 echo "[init-db] Installing MariaDB…"
+
+# Codespaces images sometimes include a Yarn repo without the key, which breaks apt-get update.
+# We do not need Yarn for this project, so remove it to keep setup reliable.
+sudo rm -f /etc/apt/sources.list.d/yarn.list
+
 sudo apt-get update -y
 sudo apt-get install -y mariadb-server mariadb-client
  
