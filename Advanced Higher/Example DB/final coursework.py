@@ -7,7 +7,8 @@ from datetime import datetime
 
 
 #Database configuration
-#Dictionary storing database connection details. Allows the program to connect to the MySQL database
+#Dictionary storing database connection details
+#Allows the program to connect to the MySQL database
 DB_CONFIG = {
     "host": "127.0.0.1", #My computer
     "user": "student", #MySQL username
