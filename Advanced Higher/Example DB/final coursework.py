@@ -212,6 +212,7 @@ while True:
 
     #Shows the menu options
     showMenu()
+
     option = int(input("Enter an option number: "))
     while option not in [1,2,3,4,5]:
         print("Please enter something")
@@ -222,14 +223,17 @@ while True:
         while isFieldBlank(taskName):
             print("Please enter something")
             taskName = input("Enter a task name: ")
+
         category = input("Enter a category: ")
         while isFieldBlank(category):
             print("Please enter something")
             category = input("Enter a category: ")
+
         dueDate = input("Enter due date: ")
         while isFieldBlank(dueDate) or not isDateValid(dueDate):
             print("Enter a valid date (YYYY-MM-DD)")
             dueDate = input("Enter due date: ")
+
         completionStatus = False
         insertTask(conn, cur, taskName, category, dueDate, completionStatus, )
 
