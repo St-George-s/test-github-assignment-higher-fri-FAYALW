@@ -121,7 +121,7 @@ def displayTasksArray(tasksArray):
             task.taskName,
             task.category,
             task.dueDate,
-            task.completionStatus
+            ("Incomplete" if task.completionStatus == False else "Complete")
         )
 
 
@@ -150,6 +150,71 @@ def deleteTask(conn, cur, taskToDelete):
     """
     cur.execute(sql, (taskToDelete, ))
     conn.commit()
+
+#User interface (FR7)
+#Opens the database
+conn, cur = open_db()
+def userInterface():
+    #An infinite loop keeps the program running until the user chooses to quit it
+    while True:
+        #Builds the array from the database
+        tasksArray = buildArray(cur)
+
+        #Sorts tasks using the bubble sort
+        sortTasksByStatus(tasksArray)
+        
+        #Displays the sorted tasks
+        displayTasksArray(tasksArray)
+
+        #Shows the menu options
+        showMenu()
+
+        option = int(input("Enter an option number: "))
+        while option not in [1,2,3,4,5]:
+            print("Please enter a valid option")
+
+        #Option 1: Adding a task
+        if option == 1:
+            taskName = input("Enter a task name: ")
+            while isFieldBlank(taskName):
+                print("Please enter something")
+                taskName = input("Enter a task name: ")
+
+            category = input("Enter a category: ")
+            while isFieldBlank(category):
+                print("Please enter something")
+                category = input("Enter a category: ")
+
+            dueDate = input("Enter due date (YYYY-MM-DD): ")
+            while isFieldBlank(dueDate) or not isDateValid(dueDate):
+                print("Enter a valid date (YYYY-MM-DD)")
+                dueDate = input("Enter due date: ")
+
+            completionStatus = False
+            insertTask(conn, cur, taskName, category, dueDate, completionStatus, )
+
+        
+        #Option 2: Deleting a task
+        if option == 2:
+            taskToDelete = int(input("Enter the task ID of the task you wish to delete: "))
+            deleteTask(conn, cur, taskToDelete)
+            
+
+        #Option 3: Marking a task
+        if option == 3:
+            taskToMark = input("Enter the task ID of the task you wish to mark: ")
+            markTask(conn, cur, taskToMark)
+
+
+        #Option 4: Displaying tasks within a specified category
+        if option == 4:
+            categoryToDisplay = input("Enter the category of the tasks you wish to be displayed: ")
+            viewByCategory(cur, categoryToDisplay)
+
+
+        #Option 5: Quit the program
+        if option == 5:
+            break
 
 
 #Marks a task as complete or incomplete by toggling the completion status of the task (FR8)
@@ -195,71 +260,8 @@ def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
         return False
     
 
-#User interface (FR7)
-#Opens the database
-conn, cur = open_db()
-
-#An infinite loop keeps the program running until the user chooses to quit it
-while True:
-    #Builds the array from the database
-    tasksArray = buildArray(cur)
-
-    #Sorts tasks using the bubble sort
-    sortTasksByStatus(tasksArray)
-    
-    #Displays the sorted tasks
-    displayTasksArray(tasksArray)
-
-    #Shows the menu options
-    showMenu()
-
-    option = int(input("Enter an option number: "))
-    while option not in [1,2,3,4,5]:
-        print("Please enter a valid option")
-
-    #Option 1: Adding a task
-    if option == 1:
-        taskName = input("Enter a task name: ")
-        while isFieldBlank(taskName):
-            print("Please enter something")
-            taskName = input("Enter a task name: ")
-
-        category = input("Enter a category: ")
-        while isFieldBlank(category):
-            print("Please enter something")
-            category = input("Enter a category: ")
-
-        dueDate = input("Enter due date: ")
-        while isFieldBlank(dueDate) or not isDateValid(dueDate):
-            print("Enter a valid date (YYYY-MM-DD)")
-            dueDate = input("Enter due date: ")
-
-        completionStatus = False
-        insertTask(conn, cur, taskName, category, dueDate, completionStatus, )
-
-    
-    #Option 2: Deleting a task
-    if option == 2:
-        taskToDelete = int(input("Enter the task ID of the task you wish to delete: "))
-        deleteTask(conn, cur, taskToDelete)
-        
-
-    #Option 3: Marking a task
-    if option == 3:
-        taskToMark = input("Enter the task ID of the task you wish to mark: ")
-        markTask(conn, cur, taskToMark)
-
-
-    #Option 4: Displaying tasks within a specified category
-    if option == 4:
-        categoryToDisplay = input("Enter the category of the tasks you wish to be displayed: ")
-        viewByCategory(cur, categoryToDisplay)
-
-
-    #Option 5: Quit the program
-    if option == 5:
-        break
-
+#Main
+userInterface()
 
 #Closes the database
 close_db(conn, cur)
