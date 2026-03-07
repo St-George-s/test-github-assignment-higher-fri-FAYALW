@@ -2,6 +2,9 @@
 #Allows the program to connect to and interact with a MySQL database
 import mysql.connector
 
+
+from texttable import Texttable
+
 #Allows the program to validate date inputs
 from datetime import datetime
 
@@ -115,14 +118,17 @@ def buildArray(cur):
 
 #Displays all tasks stored in the array of records
 def displayTasksArray(tasksArray):
-    for task in tasksArray:
-        print(
-            "Task Number:", task.taskID,
-            "Task:", task.taskName,
-            "Category:", task.category,
-            "Due Date:", task.dueDate,
-            "Completion Status:", ("Incomplete" if task.completionStatus == False else "Complete")
-        )
+
+    table = Texttable()
+    table.set_cols_align(["l", "l", "l", "l", "l"])
+    table.add_rows(
+        [["Task Number", "Task", "Category", "Due Date (YYYY-MM-DD)", "Completion Status"]] +
+        [[task.taskID, task.taskName, task.category, task.dueDate,
+        "Incomplete" if task.completionStatus == False else "Complete"]
+        for task in tasksArray]
+)
+    print(table.draw())
+
 
 #Sorts the tasks so that completed tasks are sent to the end of the list and incomplete tasks appear first (FR3&FR4)
 #Goes through the list, compares two elements at a time, swaps them if needed, continues until there are no more swaps to be had
@@ -169,7 +175,7 @@ def userInterface():
         #Shows the menu options
         showMenu()
 
-        option = int(input("Enter an option number: ")
+        option = int(input("Enter an option number: "))
         while option not in [1,2,3,4,5]:
             print("Please enter a valid option")
 
@@ -240,8 +246,8 @@ def viewByCategory(cur, categoryToDisplay):
     rows = cur.fetchall()
     for row in rows:
         #Formats the output
-        print(f"Task Number: {row[0]} | Task: {row[1]} | Category: {row[2]} | Due Date: {row[3]} | Completion Status: {row[4]}")
-
+        print(f"Task Number: {row[0]} | Task: {row[1]} | Category: {row[2]} | Due Date: {row[3]} | Completion Status:", ("Incomplete" if {row[4]} == 0 else "Complete"))
+            
 
 #Checks if the input is blank, so prevents blank entries being added to the database (FR10)
 def isFieldBlank(input):
