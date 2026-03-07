@@ -276,7 +276,7 @@ def isFieldBlank(input):
 
 
 #FR11
-#Checks id the date entered matched the format YYYY-MM-DD
+#Checks if the date entered matched the format YYYY-MM-DD
 def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
     try:
         #Attempts to convert the string to a datetime object
