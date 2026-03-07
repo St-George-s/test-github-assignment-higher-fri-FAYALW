@@ -117,13 +117,12 @@ def buildArray(cur):
 def displayTasksArray(tasksArray):
     for task in tasksArray:
         print(
-            task.taskID,
-            task.taskName,
-            task.category,
-            task.dueDate,
-            ("Incomplete" if task.completionStatus == False else "Complete")
+            "Task Number:", task.taskID,
+            "Task:", task.taskName,
+            "Category:", task.category,
+            "Due Date:", task.dueDate,
+            "Completion Status:", ("Incomplete" if task.completionStatus == False else "Complete")
         )
-
 
 #Sorts the tasks so that completed tasks are sent to the end of the list and incomplete tasks appear first (FR3&FR4)
 #Goes through the list, compares two elements at a time, swaps them if needed, continues until there are no more swaps to be had
@@ -151,6 +150,7 @@ def deleteTask(conn, cur, taskToDelete):
     cur.execute(sql, (taskToDelete, ))
     conn.commit()
 
+
 #User interface (FR7)
 #Opens the database
 conn, cur = open_db()
@@ -169,7 +169,7 @@ def userInterface():
         #Shows the menu options
         showMenu()
 
-        option = int(input("Enter an option number: "))
+        option = int(input("Enter an option number: ")
         while option not in [1,2,3,4,5]:
             print("Please enter a valid option")
 
@@ -240,7 +240,7 @@ def viewByCategory(cur, categoryToDisplay):
     rows = cur.fetchall()
     for row in rows:
         #Formats the output
-        print(f"taskID: {row[0]} | taskName: {row[1]} | category: {row[2]} | dueDate: {row[3]} | completionStatus: {row[4]}")
+        print(f"Task Number: {row[0]} | Task: {row[1]} | Category: {row[2]} | Due Date: {row[3]} | Completion Status: {row[4]}")
 
 
 #Checks if the input is blank, so prevents blank entries being added to the database (FR10)
@@ -262,6 +262,7 @@ def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
 
 #Main
 userInterface()
+
 
 #Closes the database
 close_db(conn, cur)
