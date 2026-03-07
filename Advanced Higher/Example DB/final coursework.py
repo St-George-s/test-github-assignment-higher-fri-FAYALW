@@ -215,7 +215,7 @@ while True:
 
     option = int(input("Enter an option number: "))
     while option not in [1,2,3,4,5]:
-        print("Please enter something")
+        print("Please enter a valid option")
 
     #Option 1: Adding a task
     if option == 1:
