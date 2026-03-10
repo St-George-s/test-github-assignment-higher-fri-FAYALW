@@ -106,7 +106,7 @@ def buildArray(cur):
     cur.execute("SELECT * FROM Tasks")
     rows = cur.fetchall()
     #Initialises the array
-    tasks_array = []
+    tasksArray = []
     #Loops through the rows and converts to a Task object
     for row in rows:
         task = Task(
@@ -117,9 +117,9 @@ def buildArray(cur):
             completionStatus=bool(row[4]) #Converts to a boolean
         )
         #Appends each object to the array
-        tasks_array.append(task)
+        tasksArray.append(task)
     #Returns the completed list of Task objects
-    return tasks_array
+    return tasksArray
 
 
 #Displays all tasks stored in the array of records in a table
@@ -153,7 +153,8 @@ def sortTasksByStatus(tasksArray):
                 swapped = True
         #Reduced the range each pass
         n-=1
-
+recordOne = Task()
+sortTasksByStatus([recordOne, recordTwo])
 
 #FR6
 #Deletes a task from the database using the taskID as the primary key
