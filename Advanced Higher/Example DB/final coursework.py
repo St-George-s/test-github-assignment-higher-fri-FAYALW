@@ -153,8 +153,10 @@ def sortTasksByStatus(tasksArray):
                 swapped = True
         #Reduced the range each pass
         n-=1
-recordOne = Task()
-sortTasksByStatus([recordOne, recordTwo])
+
+# recordOne = Task()
+# sortTasksByStatus([recordOne, recordTwo])
+
 
 #FR6
 #Deletes a task from the database using the taskID as the primary key
