@@ -1,0 +1,12 @@
+CREATE DATABASE IF NOT EXISTS project1;
+USE project1;
+
+DROP TABLE IF EXISTS Tasks;
+
+CREATE TABLE IF NOT EXISTS Tasks(
+  taskID INT PRIMARY KEY AUTO_INCREMENT,
+  taskName VARCHAR(100) NOT NULL,
+  category VARCHAR(25),
+  dueDate DATE,
+  completionStatus BOOLEAN
+);
