@@ -23,7 +23,7 @@ DB_CONFIG = {
 
 
 #Opens a connection to the database
-def open_db():
+def openDB():
     #Connects to the database using the configuration dictionary
     conn = mysql.connector.connect(**DB_CONFIG)
     #Creates a cursor object to allow SQL commands to be executed
@@ -33,7 +33,7 @@ def open_db():
 
 
 #Closes the database connection
-def close_db(conn, cur):
+def closeDB(conn, cur):
     #Closes the cursor and database connection
     cur.close()
     conn.close()
@@ -169,7 +169,7 @@ def deleteTask(conn, cur, taskToDelete):
 #FR7
 #User interface
 #Opens the database
-conn, cur = open_db()
+conn, cur = openDB()
 def userInterface():
     #An infinite loop keeps the program running until the user chooses to quit it
     while True:
@@ -278,10 +278,10 @@ def isFieldBlank(input):
 
 #FR11
 #Checks if the date entered matched the format YYYY-MM-DD
-def isDateValid(date_string: str, fmt: str = "%Y-%m-%d") -> bool:
+def isDateValid(dateString: str, fmt: str = "%Y-%m-%d") -> bool:
     try:
         #Attempts to convert the string to a datetime object
-        datetime.strptime(date_string, fmt)
+        datetime.strptime(dateString, fmt)
         return True
     #If the conversion fails then the format is incorrect
     except ValueError:
@@ -294,5 +294,5 @@ userInterface()
 
 
 #Closes the database connection when the program ends
-close_db(conn, cur)
+closeDB(conn, cur)
 print("Database connection closed.")
