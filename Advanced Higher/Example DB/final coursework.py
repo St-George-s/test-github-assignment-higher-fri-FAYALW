@@ -154,9 +154,6 @@ def sortTasksByStatus(tasksArray):
         #Reduced the range each pass
         n-=1
 
-# recordOne = Task()
-# sortTasksByStatus([recordOne, recordTwo])
-
 
 #FR6
 #Deletes a task from the database using the taskID as the primary key
@@ -193,6 +190,7 @@ def userInterface():
         #Ensures the option is valid
         while option not in [1,2,3,4,5]:
             print("Please enter a valid option")
+            option = int(input("Enter an option number: "))
 
         #Option 1: Adding a task
         if option == 1:
@@ -266,7 +264,7 @@ def viewByCategory(cur, categoryToDisplay):
     #Loops through and displays each result
     for row in rows:
         #Formats the output
-        print(f"Task Number: {row[0]} | Task: {row[1]} | Category: {row[2]} | Due Date: {row[3]} | Completion Status:", ("Incomplete" if {row[4]} == 0 else "Complete"))
+        print(f"Task Number: {row[0]} | Task: {row[1]} | Category: {row[2]} | Due Date: {row[3]} | Completion Status:", ("Incomplete" if row[4] == 0 else "Complete"))
             
 
 #FR10
